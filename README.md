@@ -28,7 +28,7 @@ Please:
 - **Do not use in production**
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
-# Astar  2.16.x
+# Astar  2.23.x
 
 ## System
 
@@ -52,6 +52,7 @@ Please:
 |As derivative |    |   |   | `u16` index <br/>`Call` call <br/> |
 |Batch all |    |   |   | `VecCall` calls <br/> |
 |Dispatch as |    |   |   | `BoxPalletsOrigin` as_origin <br/>`Call` call <br/> |
+|Force batch |    |   |   | `VecCall` calls <br/> |
 
 ## Identity
 
@@ -129,6 +130,7 @@ Please:
 |Bond and stake |    |   |   | `SmartContract` contract_id <br/>`Compactu128` amount <br/> |
 |Unbond and unstake |    |   |   | `SmartContract` contract_id <br/>`Compactu128` amount <br/> |
 |Withdraw Unbonded |    |   |   |  |
+|Nomination transfer |    |   |   | `SmartContract` origin_contract_id <br/>`Compactu128` amount <br/>`SmartContract` target_contract_id <br/> |
 |Claim staker |    |   |   | `SmartContract` contract_id <br/> |
 |Claim dapp |    |   |   | `SmartContract` contract_id <br/>`Compactu32` era <br/> |
 |Force new era |    |   |   |  |
@@ -218,6 +220,7 @@ Please:
 |Send |    |   |   | `BoxVersionedMultiLocation` dest <br/>`BoxVersionedXcmTuple` message <br/> |
 |Teleport assets |    |   |   | `BoxVersionedMultiLocation` dest <br/>`BoxVersionedMultiLocation` beneficiary <br/>`BoxVersionedMultiAssets` assets <br/>`u32` fee_asset_item <br/> |
 |Reserve transfer assets |    |   |   | `BoxVersionedMultiLocation` dest <br/>`BoxVersionedMultiLocation` beneficiary <br/>`BoxVersionedMultiAssets` assets <br/>`u32` fee_asset_item <br/> |
+|Reserve withdraw assets |    |   |   | `BoxVersionedMultiLocation` dest <br/>`BoxVersionedMultiLocation` beneficiary <br/>`BoxVersionedMultiAssets` assets <br/>`u32` fee_asset_item <br/> |
 |Execute |    |   |   | `BoxVersionedXcmTasSysConfigCall` message <br/>`Weight` max_weight <br/> |
 |Force xcm version |    |   |   | `BoxMultiLocation` location <br/>`XcmVersion` xcm_version <br/> |
 |Force default xcm version |    |   |   | `OptionXcmVersion` maybe_xcm_version <br/> |
@@ -225,12 +228,23 @@ Please:
 |Force unsubscribe version notify |    |   |   | `BoxVersionedMultiLocation` location <br/> |
 |Limited reserve transfer assets |    |   |   | `BoxVersionedMultiLocation` dest <br/>`BoxVersionedMultiLocation` beneficiary <br/>`BoxVersionedMultiAssets` assets <br/>`u32` fee_asset_item <br/>`WeightLimit` weight_limit <br/> |
 |Limited teleport assets |    |   |   | `BoxVersionedMultiLocation` dest <br/>`BoxVersionedMultiLocation` beneficiary <br/>`BoxVersionedMultiAssets` assets <br/>`u32` fee_asset_item <br/>`WeightLimit` weight_limit <br/> |
+|Limited reserve withdraw assets |    |   |   | `BoxVersionedMultiLocation` dest <br/>`BoxVersionedMultiLocation` beneficiary <br/>`BoxVersionedMultiAssets` assets <br/>`u32` fee_asset_item <br/>`WeightLimit` weight_limit <br/> |
 
 ## DmpQueue
 
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
 |Service overweight |    |   |   | `OverweightIndex` index <br/>`Weight` weight_limit <br/> |
+
+## XcAssetConfig
+
+| Name        | Light | XL | Nesting | Arguments |
+| :---------- |:------------:|:--------:|:--------:|:--------|
+|Register asset location |    |   |   | `BoxVersionedMultiLocation` asset_location <br/>`Compactu128` asset_id <br/> |
+|Set asset units per second |    |   |   | `BoxVersionedMultiLocation` asset_location <br/>`Compactu128` units_per_second <br/> |
+|Change existing asset location |    |   |   | `BoxVersionedMultiLocation` new_asset_location <br/>`Compactu128` asset_id <br/> |
+|Remove payment asset |    |   |   | `BoxVersionedMultiLocation` asset_location <br/> |
+|Remove asset |    |   |   | `Compactu128` asset_id <br/> |
 
 ## EVM
 
@@ -240,7 +254,6 @@ Please:
 |Call |    |   |   | `H160` source <br/>`H160` target <br/>`Vecu8` input <br/>`U256` value <br/>`u64` gas_limit <br/>`U256` max_fee_per_gas <br/>`OptionU256` max_priority_fee_per_gas <br/>`OptionU256` nonce <br/>`VecTupleH160VecH256` access_list <br/> |
 |Create |    |   |   | `H160` source <br/>`Vecu8` init <br/>`U256` value <br/>`u64` gas_limit <br/>`U256` max_fee_per_gas <br/>`OptionU256` max_priority_fee_per_gas <br/>`OptionU256` nonce <br/>`VecTupleH160VecH256` access_list <br/> |
 |Create2 |    |   |   | `H160` source <br/>`Vecu8` init <br/>`H256` salt <br/>`U256` value <br/>`u64` gas_limit <br/>`U256` max_fee_per_gas <br/>`OptionU256` max_priority_fee_per_gas <br/>`OptionU256` nonce <br/>`VecTupleH160VecH256` access_list <br/> |
-|Hotfix inc account sufficients |    |   |   | `VecH160` addresses <br/> |
 
 ## Ethereum
 
