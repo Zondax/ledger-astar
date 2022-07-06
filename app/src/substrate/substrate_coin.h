@@ -61,13 +61,13 @@ typedef enum {
 #define COIN_NAME "Astar"
 #define COIN_TICKER "ASTR "
 
-#define COIN_SECRET_REQUIRED_CLICKS 0
-
 #define MENU_MAIN_APP_LINE1 "Astar"
 #define MENU_MAIN_APP_LINE2 "Ready"
-#define MENU_MAIN_APP_LINE2_SECRET "ASTR RECOVERY"
 #define APPVERSION_LINE1 "Astar"
 #define APPVERSION_LINE2 "v" APPVERSION
+
+#define ACCOUNT_DEFAULT "Legacy"
+#define ACCOUNT_SECONDARY "Crowdloan"
 
 #ifdef __cplusplus
 }
