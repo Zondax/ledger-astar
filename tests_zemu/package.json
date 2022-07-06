@@ -14,12 +14,12 @@
     "Ledger"
   ],
   "scripts": {
-    "test": "jest -t 'Standard'",
+    "test": "jest tests/crowdloans.test.ts && jest tests/standard.test.ts",
     "testSR25519": "jest tests/sr25519.test.ts"
   },
   "dependencies": {
-    "@zondax/ledger-substrate": "^0.29.0",
-    "@zondax/zemu": "^0.29.0"
+    "@zondax/ledger-substrate": "^0.32.0",
+    "@zondax/zemu": "^0.32.0"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",
