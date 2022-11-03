@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2022 Zondax GmbH
+ *  (c) 2019 - 2022 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -92,12 +92,31 @@ typedef struct {
 } pd_Call_t;
 
 typedef struct {
+    uint64_t _len;
+    const uint8_t* _ptr;
+    uint64_t _lenBuffer;
+    uint32_t callTxVersion;
+} pd_VecCall_t;
+
+typedef struct {
     const uint8_t* _ptr;
 } pd_Balance_t;
+
+typedef compactInt_t pd_Compactu128_t;
+
+typedef struct {
+    const uint8_t* _ptr;
+} pd_H256_t;
 
 typedef struct {
     const uint8_t* _ptr;
 } pd_Hash_t;
+
+typedef struct {
+    uint64_t _len;
+    const uint8_t* _ptr;
+    uint64_t _lenBuffer;
+} pd_Vecu8_t;
 
 ////////////////////////
 // /Common types

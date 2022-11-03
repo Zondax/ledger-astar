@@ -1,5 +1,5 @@
 /** ******************************************************************************
- *  (c) 2019 - 2022 Zondax GmbH
+ *  (c) 2019 - 2022 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
  *  limitations under the License.
  ******************************************************************************* */
 
-export const txBalances_transfer =
-  '1f0000313233343536373839303132333435363738393031323334353637383930313233158139ae28a3dfaac5fe1560a5e9e05cd5038d2433158139ae28a3dfaac5fe1560a5e9e05c17000000020000009eb76c5184c4ab8679d2d5d819fdf90b9c001403e9e17da2e14b6d8aec4029c69eb76c5184c4ab8679d2d5d819fdf90b9c001403e9e17da2e14b6d8aec4029c6'
+export const txUtility_batch =
+  '0b00080a002c0000000a0058000000d5038d2433158139ae28a3dfaac5fe1560a5e9e05c23000000020000009eb76c5184c4ab8679d2d5d819fdf90b9c001403e9e17da2e14b6d8aec4029c69eb76c5184c4ab8679d2d5d819fdf90b9c001403e9e17da2e14b6d8aec4029c6'
 
+export const txBalances_transfer =
+  '1f0000313233343536373839303132333435363738393031323334353637383930313233158139ae28a3dfaac5fe1560a5e9e05cd5038d2433158139ae28a3dfaac5fe1560a5e9e05c23000000020000009eb76c5184c4ab8679d2d5d819fdf90b9c001403e9e17da2e14b6d8aec4029c69eb76c5184c4ab8679d2d5d819fdf90b9c001403e9e17da2e14b6d8aec4029c6'

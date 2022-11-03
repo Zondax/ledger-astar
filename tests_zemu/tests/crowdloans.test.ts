@@ -27,10 +27,6 @@ const defaultOptions = {
 
 jest.setTimeout(180000)
 
-beforeAll(async () => {
-  await Zemu.checkAndPullImage()
-})
-
 async function activateCrowdloanMode(sim: any) {
   // Crowdloan can be activate only when expert mode is enabled
   await sim.clickRight()
