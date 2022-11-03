@@ -28,7 +28,19 @@ extern "C" {
 // Read functions
 parser_error_t _readAccountId_V2(parser_context_t* c, pd_AccountId_V2_t* v);
 parser_error_t _readCompactAccountIndex_V2(parser_context_t* c, pd_CompactAccountIndex_V2_t* v);
+parser_error_t _readContractStakeInfoBalanceOfT_V2(parser_context_t* c, pd_ContractStakeInfoBalanceOfT_V2_t* v);
+parser_error_t _readDappsRewardDestination_V2(parser_context_t* c, pd_DappsRewardDestination_V2_t* v);
+parser_error_t _readDestroyWitness_V2(parser_context_t* c, pd_DestroyWitness_V2_t* v);
+parser_error_t _readEraIndex_V2(parser_context_t* c, pd_EraIndex_V2_t* v);
+parser_error_t _readH160_V2(parser_context_t* c, pd_H160_V2_t* v);
 parser_error_t _readLookupasStaticLookupSource_V2(parser_context_t* c, pd_LookupasStaticLookupSource_V2_t* v);
+parser_error_t _readOpaqueCall_V2(parser_context_t* c, pd_OpaqueCall_V2_t* v);
+parser_error_t _readOptionTimepoint_V2(parser_context_t* c, pd_OptionTimepoint_V2_t* v);
+parser_error_t _readPerbill_V2(parser_context_t* c, pd_Perbill_V2_t* v);
+parser_error_t _readSmartContract_V2(parser_context_t* c, pd_SmartContract_V2_t* v);
+parser_error_t _readTimepoint_V2(parser_context_t* c, pd_Timepoint_V2_t* v);
+parser_error_t _readVecAccountId_V2(parser_context_t* c, pd_VecAccountId_V2_t* v);
+parser_error_t _readWeight_V2(parser_context_t* c, pd_Weight_V2_t* v);
 
 // toString functions
 parser_error_t _toStringAccountId_V2(
@@ -45,8 +57,92 @@ parser_error_t _toStringCompactAccountIndex_V2(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
+parser_error_t _toStringContractStakeInfoBalanceOfT_V2(
+    const pd_ContractStakeInfoBalanceOfT_V2_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringDappsRewardDestination_V2(
+    const pd_DappsRewardDestination_V2_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringDestroyWitness_V2(
+    const pd_DestroyWitness_V2_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringEraIndex_V2(
+    const pd_EraIndex_V2_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringH160_V2(
+    const pd_H160_V2_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
 parser_error_t _toStringLookupasStaticLookupSource_V2(
     const pd_LookupasStaticLookupSource_V2_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringOpaqueCall_V2(
+    const pd_OpaqueCall_V2_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringOptionTimepoint_V2(
+    const pd_OptionTimepoint_V2_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringPerbill_V2(
+    const pd_Perbill_V2_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringSmartContract_V2(
+    const pd_SmartContract_V2_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringTimepoint_V2(
+    const pd_Timepoint_V2_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringVecAccountId_V2(
+    const pd_VecAccountId_V2_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringWeight_V2(
+    const pd_Weight_V2_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,

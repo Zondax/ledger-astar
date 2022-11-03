@@ -35,6 +35,27 @@ typedef struct {
 } pd_CompactAccountIndex_V2_t;
 
 typedef struct {
+    const uint8_t* _ptr;
+} pd_H160_V2_t;
+
+typedef struct {
+    pd_BlockNumber_t height;
+    uint32_t index;
+} pd_Timepoint_V2_t;
+
+typedef struct {
+    pd_CompactBalance_t total;
+    pd_Compactu32_t numberOfStakers;
+    pd_bool_t contractRewardClaimed;
+} pd_ContractStakeInfoBalanceOfT_V2_t;
+
+typedef struct {
+    pd_Compactu32_t accounts;
+    pd_Compactu32_t sufficients;
+    pd_Compactu32_t approvals;
+} pd_DestroyWitness_V2_t;
+
+typedef struct {
     uint8_t value;
     union {
         pd_AccountId_V2_t id;
@@ -43,6 +64,45 @@ typedef struct {
         const uint8_t* _ptr;
     };
 } pd_LookupasStaticLookupSource_V2_t;
+
+typedef struct {
+    pd_Call_t call;
+} pd_OpaqueCall_V2_t;
+
+typedef struct {
+    uint8_t some;
+    pd_Timepoint_V2_t contained;
+} pd_OptionTimepoint_V2_t;
+
+typedef struct {
+    uint8_t value;
+    union {
+        pd_H160_V2_t evm;
+        pd_AccountId_V2_t wasm;
+    };
+} pd_SmartContract_V2_t;
+
+typedef struct {
+    uint8_t value;
+} pd_DappsRewardDestination_V2_t;
+
+typedef struct {
+    uint32_t value;
+} pd_EraIndex_V2_t;
+
+typedef struct {
+    uint32_t value;
+} pd_Perbill_V2_t;
+
+typedef struct {
+    uint64_t _len;
+    const uint8_t* _ptr;
+    uint64_t _lenBuffer;
+} pd_VecAccountId_V2_t;
+
+typedef struct {
+    uint64_t value;
+} pd_Weight_V2_t;
 
 #ifdef __cplusplus
 }

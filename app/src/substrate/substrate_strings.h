@@ -20,17 +20,84 @@ extern "C" {
 #endif
 
 // Modules names
+static const char* STR_MO_SYSTEM = "System";
+static const char* STR_MO_UTILITY = "Utility";
+static const char* STR_MO_MULTISIG = "Multisig";
 static const char* STR_MO_BALANCES = "Balances";
+static const char* STR_MO_DAPPSSTAKING = "Dappsstaking";
+static const char* STR_MO_ASSETS = "Assets";
 
 // Methods names
+static const char* STR_ME_FILL_BLOCK = "Fill block";
+static const char* STR_ME_BATCH = "Batch";
+static const char* STR_ME_BATCH_ALL = "Batch all";
+static const char* STR_ME_FORCE_BATCH = "Force batch";
+static const char* STR_ME_AS_MULTI_THRESHOLD_1 = "As multi threshold 1";
+static const char* STR_ME_AS_MULTI = "As multi";
+static const char* STR_ME_APPROVE_AS_MULTI = "Approve as multi";
+static const char* STR_ME_CANCEL_AS_MULTI = "Cancel as multi";
 static const char* STR_ME_TRANSFER = "Transfer";
 static const char* STR_ME_SET_BALANCE = "Set balance";
 static const char* STR_ME_FORCE_TRANSFER = "Force transfer";
 static const char* STR_ME_TRANSFER_KEEP_ALIVE = "Transfer keep alive";
 static const char* STR_ME_TRANSFER_ALL = "Transfer all";
 static const char* STR_ME_FORCE_UNRESERVE = "Force unreserve";
+static const char* STR_ME_REGISTER = "Register";
+static const char* STR_ME_UNREGISTER = "Unregister";
+static const char* STR_ME_WITHDRAW_FROM_UNREGISTERED = "Withdraw from unregistered";
+static const char* STR_ME_BOND_AND_STAKE = "Bond and stake";
+static const char* STR_ME_UNBOND_AND_UNSTAKE = "Unbond and unstake";
+static const char* STR_ME_WITHDRAW_UNBONDED = "Withdraw Unbonded";
+static const char* STR_ME_NOMINATION_TRANSFER = "Nomination transfer";
+static const char* STR_ME_CLAIM_STAKER = "Claim staker";
+static const char* STR_ME_CLAIM_DAPP = "Claim dapp";
+static const char* STR_ME_FORCE_NEW_ERA = "Force new era";
+static const char* STR_ME_MAINTENANCE_MODE = "Maintenance mode";
+static const char* STR_ME_SET_REWARD_DESTINATION = "Set reward destination";
+static const char* STR_ME_SET_CONTRACT_STAKE_INFO = "Set contract stake info";
+static const char* STR_ME_CREATE = "Create";
+static const char* STR_ME_FORCE_CREATE = "Force create";
+static const char* STR_ME_DESTROY = "Destroy";
+static const char* STR_ME_MINT = "Mint";
+static const char* STR_ME_BURN = "Burn";
+static const char* STR_ME_FREEZE = "Freeze";
+static const char* STR_ME_THAW = "Thaw";
+static const char* STR_ME_FREEZE_ASSET = "Freeze asset";
+static const char* STR_ME_THAW_ASSET = "Thaw asset";
+static const char* STR_ME_TRANSFER_OWNERSHIP = "Transfer ownership";
+static const char* STR_ME_SET_TEAM = "Set team";
+static const char* STR_ME_SET_METADATA = "Set metadata";
+static const char* STR_ME_CLEAR_METADATA = "Clear metadata";
+static const char* STR_ME_FORCE_SET_METADATA = "Force set metadata";
+static const char* STR_ME_FORCE_CLEAR_METADATA = "Force clear metadata";
+static const char* STR_ME_FORCE_ASSET_STATUS = "Force asset status";
+static const char* STR_ME_APPROVE_TRANSFER = "Approve transfer";
+static const char* STR_ME_CANCEL_APPROVAL = "Cancel approval";
+static const char* STR_ME_FORCE_CANCEL_APPROVAL = "Force cancel approval";
+static const char* STR_ME_TRANSFER_APPROVED = "Transfer approved";
+static const char* STR_ME_TOUCH = "Touch";
+static const char* STR_ME_REFUND = "Refund";
 
 // Items names
+static const char* STR_IT_ratio = "Ratio";
+static const char* STR_IT_remark = "Remark";
+static const char* STR_IT_pages = "Pages";
+static const char* STR_IT_code = "Code";
+static const char* STR_IT_items = "Items";
+static const char* STR_IT_keys = "Keys";
+static const char* STR_IT_prefix = "Prefix";
+static const char* STR_IT_subkeys = "Subkeys";
+static const char* STR_IT_calls = "Calls";
+static const char* STR_IT_index = "Index";
+static const char* STR_IT_call = "Call";
+static const char* STR_IT_as_origin = "As origin";
+static const char* STR_IT_other_signatories = "Other signatories";
+static const char* STR_IT_threshold = "Threshold";
+static const char* STR_IT_maybe_timepoint = "Maybe timepoint";
+static const char* STR_IT_store_call = "Store call";
+static const char* STR_IT_max_weight = "Max weight";
+static const char* STR_IT_call_hash = "Call hash";
+static const char* STR_IT_timepoint = "Timepoint";
 static const char* STR_IT_dest = "Dest";
 static const char* STR_IT_amount = "Amount";
 static const char* STR_IT_who = "Who";
@@ -38,6 +105,32 @@ static const char* STR_IT_new_free = "New free";
 static const char* STR_IT_new_reserved = "New reserved";
 static const char* STR_IT_source = "Source";
 static const char* STR_IT_keep_alive = "Keep alive";
+static const char* STR_IT_developer = "Developer";
+static const char* STR_IT_contract_id = "Contract id";
+static const char* STR_IT_origin_contract_id = "Origin contract id";
+static const char* STR_IT_target_contract_id = "Target contract id";
+static const char* STR_IT_era = "Era";
+static const char* STR_IT_enable_maintenance = "Enable maintenance";
+static const char* STR_IT_reward_destination = "Reward destination";
+static const char* STR_IT_contract = "Contract";
+static const char* STR_IT_contract_stake_info = "Contract stake info";
+static const char* STR_IT_id = "Id";
+static const char* STR_IT_admin = "Admin";
+static const char* STR_IT_min_balance = "Min balance";
+static const char* STR_IT_owner = "Owner";
+static const char* STR_IT_is_sufficient = "Is sufficient";
+static const char* STR_IT_witness = "Witness";
+static const char* STR_IT_beneficiary = "Beneficiary";
+static const char* STR_IT_target = "Target";
+static const char* STR_IT_issuer = "Issuer";
+static const char* STR_IT_freezer = "Freezer";
+static const char* STR_IT_name = "Name";
+static const char* STR_IT_symbol = "Symbol";
+static const char* STR_IT_decimals = "Decimals";
+static const char* STR_IT_is_frozen = "Is frozen";
+static const char* STR_IT_delegate = "Delegate";
+static const char* STR_IT_destination = "Destination";
+static const char* STR_IT_allow_burn = "Allow burn";
 
 #ifdef __cplusplus
 }
