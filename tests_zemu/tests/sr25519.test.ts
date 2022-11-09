@@ -17,7 +17,7 @@
 import Zemu, { DEFAULT_START_OPTIONS } from '@zondax/zemu'
 import { newAstarApp } from '@zondax/ledger-substrate'
 import { APP_SEED } from './common'
-import { txBalances_transfer} from './zemu_blobs'
+import { txBalances_transfer } from './zemu_blobs'
 
 // @ts-ignore
 import { blake2bFinal, blake2bInit, blake2bUpdate } from 'blakejs'
@@ -35,10 +35,6 @@ const defaultOptions = {
 }
 
 jest.setTimeout(180000)
-
-beforeAll(async () => {
-  await Zemu.checkAndPullImage()
-})
 
 describe('SR25519', function () {
   test('get address sr25519', async function () {
