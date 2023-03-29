@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2022 Zondax AG
+ *  (c) 2019 - 2023 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -28,10 +28,11 @@ static const char* STR_MO_DAPPSSTAKING = "Dappsstaking";
 static const char* STR_MO_ASSETS = "Assets";
 
 // Methods names
-static const char* STR_ME_FILL_BLOCK = "Fill block";
+static const char* STR_ME_REMARK = "Remark";
 static const char* STR_ME_BATCH = "Batch";
 static const char* STR_ME_BATCH_ALL = "Batch all";
 static const char* STR_ME_FORCE_BATCH = "Force batch";
+static const char* STR_ME_WITH_WEIGHT = "With weight";
 static const char* STR_ME_AS_MULTI_THRESHOLD_1 = "As multi threshold 1";
 static const char* STR_ME_AS_MULTI = "As multi";
 static const char* STR_ME_APPROVE_AS_MULTI = "Approve as multi";
@@ -55,9 +56,13 @@ static const char* STR_ME_FORCE_NEW_ERA = "Force new era";
 static const char* STR_ME_MAINTENANCE_MODE = "Maintenance mode";
 static const char* STR_ME_SET_REWARD_DESTINATION = "Set reward destination";
 static const char* STR_ME_SET_CONTRACT_STAKE_INFO = "Set contract stake info";
+static const char* STR_ME_BURN_STALE_REWARD = "Burn stale reward";
 static const char* STR_ME_CREATE = "Create";
 static const char* STR_ME_FORCE_CREATE = "Force create";
-static const char* STR_ME_DESTROY = "Destroy";
+static const char* STR_ME_START_DESTROY = "Start destroy";
+static const char* STR_ME_DESTROY_ACCOUNTS = "Destroy accounts";
+static const char* STR_ME_DESTROY_APPROVALS = "Destroy approvals";
+static const char* STR_ME_FINISH_DESTROY = "Finish destroy";
 static const char* STR_ME_MINT = "Mint";
 static const char* STR_ME_BURN = "Burn";
 static const char* STR_ME_FREEZE = "Freeze";
@@ -79,7 +84,6 @@ static const char* STR_ME_TOUCH = "Touch";
 static const char* STR_ME_REFUND = "Refund";
 
 // Items names
-static const char* STR_IT_ratio = "Ratio";
 static const char* STR_IT_remark = "Remark";
 static const char* STR_IT_pages = "Pages";
 static const char* STR_IT_code = "Code";
@@ -91,10 +95,10 @@ static const char* STR_IT_calls = "Calls";
 static const char* STR_IT_index = "Index";
 static const char* STR_IT_call = "Call";
 static const char* STR_IT_as_origin = "As origin";
+static const char* STR_IT_weight = "Weight";
 static const char* STR_IT_other_signatories = "Other signatories";
 static const char* STR_IT_threshold = "Threshold";
 static const char* STR_IT_maybe_timepoint = "Maybe timepoint";
-static const char* STR_IT_store_call = "Store call";
 static const char* STR_IT_max_weight = "Max weight";
 static const char* STR_IT_call_hash = "Call hash";
 static const char* STR_IT_timepoint = "Timepoint";
@@ -119,7 +123,6 @@ static const char* STR_IT_admin = "Admin";
 static const char* STR_IT_min_balance = "Min balance";
 static const char* STR_IT_owner = "Owner";
 static const char* STR_IT_is_sufficient = "Is sufficient";
-static const char* STR_IT_witness = "Witness";
 static const char* STR_IT_beneficiary = "Beneficiary";
 static const char* STR_IT_target = "Target";
 static const char* STR_IT_issuer = "Issuer";
