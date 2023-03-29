@@ -1,5 +1,5 @@
 /*******************************************************************************
-*  (c) 2019 - 2022  Zondax AG
+*  (c) 2019 - 2023  Zondax AG
 *
 *  Licensed under the Apache License, Version 2.0 (the "License");
 *  you may not use this file except in compliance with the License.
@@ -52,6 +52,10 @@ extern "C" {
 
 #define GEN_DEF_TOSTRING_ARRAY(SIZE) \
     CLEAN_AND_CHECK();                                                                  \
+    if ((SIZE) == 0) {                                                                  \
+        snprintf(outValue, outValueLen, "Empty");                                       \
+        return parser_ok;                                                               \
+    }                                                                                   \
     if (v->_ptr == NULL || outValueLen == 0 ) return parser_unexpected_buffer_end;      \
     const uint16_t outLenNormalized = (outValueLen - 1) / 2;                            \
     if (outLenNormalized == 0 ) return parser_unexpected_buffer_end;                    \
@@ -128,7 +132,7 @@ GEN_DEC_READFIX_UNSIGNED(64);
     *pageCount = 0;                                         \
     pd_##TYPE##_t tmp;                                      \
     parser_context_t ctx;                                   \
-    uint8_t chunkPageCount;                                 \
+    uint8_t chunkPageCount = 0;                             \
     uint16_t currentPage, currentTotalPage = 0;             \
     if(v->_len == 0) {                                      \
         *pageCount = 1;                                     \
@@ -138,14 +142,14 @@ GEN_DEC_READFIX_UNSIGNED(64);
     /* We need to do it twice because there is no memory to keep intermediate results*/ \
     /* First count*/ \
     parser_init(&ctx, v->_ptr, v->_lenBuffer);\
-    for (uint16_t i = 0; i < v->_len; i++) {\
+    for (uint64_t i = 0; i < v->_len; i++) {\
         CHECK_ERROR(_read##TYPE(&ctx, &tmp));\
         CHECK_ERROR(_toString##TYPE(&tmp, outValue, outValueLen, 0, &chunkPageCount));\
         (*pageCount)+=chunkPageCount;\
     }\
     /* Then iterate until we can print the corresponding chunk*/ \
     parser_init(&ctx, v->_ptr, v->_lenBuffer);\
-    for (uint16_t i = 0; i < v->_len; i++) {\
+    for (uint64_t i = 0; i < v->_len; i++) {\
         CHECK_ERROR(_read##TYPE(&ctx, &tmp));\
         chunkPageCount = 1;\
         currentPage = 0;\
