@@ -188,8 +188,8 @@ uint16_t _detectAddressType(const parser_context_t *c);
 
 parser_error_t _toStringCompactInt(const compactInt_t *c, uint8_t decimalPlaces,
                                    bool trimTrailingZeros,
-                                   char postfix[],
-                                   char prefix[],
+                                   const char postfix[],
+                                   const char prefix[],
                                    char *outValue, uint16_t outValueLen,
                                    uint8_t pageIdx, uint8_t *pageCount);
 
