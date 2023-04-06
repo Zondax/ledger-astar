@@ -28,6 +28,7 @@ jobs:
         uses: github/codeql-action/init@v2
         with:
           languages: cpp
+          queries: security-and-quality
 
       - name: Build
         run: |
