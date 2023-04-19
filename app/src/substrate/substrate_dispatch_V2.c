@@ -556,10 +556,10 @@ parser_error_t _readMethod_V2(
         CHECK_ERROR(_readMethod_dappsstaking_nomination_transfer_V2(c, &method->basic.dappsstaking_nomination_transfer_V2))
         break;
     case 8711: /* module 34 call 7 */
-        CHECK_ERROR(_readMethod_dappsstaking_claim_staker_V2(c, &method->basic.dappsstaking_claim_staker_V2))
+        CHECK_ERROR(_readMethod_dappsstaking_claim_staker_V2(c, &method->nested.dappsstaking_claim_staker_V2))
         break;
     case 8712: /* module 34 call 8 */
-        CHECK_ERROR(_readMethod_dappsstaking_claim_dapp_V2(c, &method->basic.dappsstaking_claim_dapp_V2))
+        CHECK_ERROR(_readMethod_dappsstaking_claim_dapp_V2(c, &method->nested.dappsstaking_claim_dapp_V2))
         break;
 
 #ifdef SUBSTRATE_PARSER_FULL
@@ -1756,7 +1756,7 @@ parser_error_t _getMethod_ItemValue_V2(
         switch (itemIdx) {
         case 0: /* dappsstaking_claim_staker_V2 - contract_id */;
             return _toStringSmartContract(
-                &m->basic.dappsstaking_claim_staker_V2.contract_id,
+                &m->nested.dappsstaking_claim_staker_V2.contract_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -1766,12 +1766,12 @@ parser_error_t _getMethod_ItemValue_V2(
         switch (itemIdx) {
         case 0: /* dappsstaking_claim_dapp_V2 - contract_id */;
             return _toStringSmartContract(
-                &m->basic.dappsstaking_claim_dapp_V2.contract_id,
+                &m->nested.dappsstaking_claim_dapp_V2.contract_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dappsstaking_claim_dapp_V2 - era */;
             return _toStringCompactu32(
-                &m->basic.dappsstaking_claim_dapp_V2.era,
+                &m->nested.dappsstaking_claim_dapp_V2.era,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -2542,8 +2542,6 @@ bool _getMethod_IsNestingSupported_V2(uint8_t moduleIdx, uint8_t callIdx)
     case 8708: // DappsStaking:Unbond and unstake
     case 8709: // DappsStaking:Withdraw Unbonded
     case 8710: // DappsStaking:Nomination transfer
-    case 8711: // DappsStaking:Claim staker
-    case 8712: // DappsStaking:Claim dapp
     case 8713: // DappsStaking:Force new era
     case 8714: // DappsStaking:Maintenance mode
     case 8715: // DappsStaking:Set reward destination
