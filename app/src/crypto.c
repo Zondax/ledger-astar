@@ -161,8 +161,13 @@ void zeroize_sr25519_signdata(void) {
     explicit_bzero(sr25519_signature, sizeof(sr25519_signature));
 }
 
-void copy_sr25519_signdata(uint8_t *buffer) {
+zxerr_t copy_sr25519_signdata(uint8_t *buffer, uint16_t bufferLen) {
+    if (SIG_PLUS_TYPE_LEN > bufferLen) {
+        return zxerr_buffer_too_small;
+    }
+
     memcpy(buffer, sr25519_signature, SIG_PLUS_TYPE_LEN);
+    return zxerr_ok;
 }
 
 static zxerr_t crypto_sign_sr25519_helper(const uint8_t *data, size_t len) {
