@@ -96,22 +96,22 @@
 
 ## DappsStaking
 
-| Name                       | Nano S             | Nano S XL          | Nano SP/X          | Nesting | Arguments                                                                                            |
-| -------------------------- | ------------------ | ------------------ | ------------------ | ------- | ---------------------------------------------------------------------------------------------------- |
-| Register                   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |         | `AccountId`developer<br/>`SmartContract`contract_id<br/>                                             |
-| Unregister                 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |         | `SmartContract`contract_id<br/>                                                                      |
-| Withdraw from unregistered | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |         | `SmartContract`contract_id<br/>                                                                      |
-| Bond and stake             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |         | `SmartContract`contract_id<br/>`Compactu128`amount<br/>                                              |
-| Unbond and unstake         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |         | `SmartContract`contract_id<br/>`Compactu128`amount<br/>                                              |
-| Withdraw Unbonded          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |         |                                                                                                      |
-| Nomination transfer        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |         | `SmartContract`origin_contract_id<br/>`Compactu128`amount<br/>`SmartContract`target_contract_id<br/> |
-| Claim staker               | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |         | `SmartContract`contract_id<br/>                                                                      |
-| Claim dapp                 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |         | `SmartContract`contract_id<br/>`Compactu32`era<br/>                                                  |
-| Force new era              |                    | :heavy_check_mark: | :heavy_check_mark: |         |                                                                                                      |
-| Maintenance mode           |                    | :heavy_check_mark: | :heavy_check_mark: |         | `bool`enable_maintenance<br/>                                                                        |
-| Set reward destination     |                    | :heavy_check_mark: | :heavy_check_mark: |         | `DappsRewardDestination`reward_destination<br/>                                                      |
-| Set contract stake info    |                    | :heavy_check_mark: | :heavy_check_mark: |         | `SmartContract`contract<br/>`EraIndex`era<br/>`ContractStakeInfoBalanceOfT`contract_stake_info<br/>  |
-| Burn stale reward          |                    | :heavy_check_mark: | :heavy_check_mark: |         | `SmartContract`contract_id<br/>`Compactu32`era<br/>                                                  |
+| Name                       | Nano S             | Nano S XL          | Nano SP/X          | Nesting            | Arguments                                                                                            |
+| -------------------------- | ------------------ | ------------------ | ------------------ | ------------------ | ---------------------------------------------------------------------------------------------------- |
+| Register                   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                    | `AccountId`developer<br/>`SmartContract`contract_id<br/>                                             |
+| Unregister                 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                    | `SmartContract`contract_id<br/>                                                                      |
+| Withdraw from unregistered | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                    | `SmartContract`contract_id<br/>                                                                      |
+| Bond and stake             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                    | `SmartContract`contract_id<br/>`Compactu128`amount<br/>                                              |
+| Unbond and unstake         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                    | `SmartContract`contract_id<br/>`Compactu128`amount<br/>                                              |
+| Withdraw Unbonded          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                    |                                                                                                      |
+| Nomination transfer        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                    | `SmartContract`origin_contract_id<br/>`Compactu128`amount<br/>`SmartContract`target_contract_id<br/> |
+| Claim staker               | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `SmartContract`contract_id<br/>                                                                      |
+| Claim dapp                 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `SmartContract`contract_id<br/>`Compactu32`era<br/>                                                  |
+| Force new era              |                    | :heavy_check_mark: | :heavy_check_mark: |                    |                                                                                                      |
+| Maintenance mode           |                    | :heavy_check_mark: | :heavy_check_mark: |                    | `bool`enable_maintenance<br/>                                                                        |
+| Set reward destination     |                    | :heavy_check_mark: | :heavy_check_mark: |                    | `DappsRewardDestination`reward_destination<br/>                                                      |
+| Set contract stake info    |                    | :heavy_check_mark: | :heavy_check_mark: |                    | `SmartContract`contract<br/>`EraIndex`era<br/>`ContractStakeInfoBalanceOfT`contract_stake_info<br/>  |
+| Burn stale reward          |                    | :heavy_check_mark: | :heavy_check_mark: |                    | `SmartContract`contract_id<br/>`Compactu32`era<br/>                                                  |
 
 ## BlockReward
 
