@@ -97,17 +97,6 @@ typedef struct {
     pd_SmartContract_t target_contract_id;
 } pd_dappsstaking_nomination_transfer_V2_t;
 
-#define PD_CALL_DAPPSSTAKING_CLAIM_STAKER_V2 7
-typedef struct {
-    pd_SmartContract_t contract_id;
-} pd_dappsstaking_claim_staker_V2_t;
-
-#define PD_CALL_DAPPSSTAKING_CLAIM_DAPP_V2 8
-typedef struct {
-    pd_SmartContract_t contract_id;
-    pd_Compactu32_t era;
-} pd_dappsstaking_claim_dapp_V2_t;
-
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
 #endif
@@ -350,8 +339,6 @@ typedef union {
     pd_dappsstaking_unbond_and_unstake_V2_t dappsstaking_unbond_and_unstake_V2;
     pd_dappsstaking_withdraw_unbonded_V2_t dappsstaking_withdraw_unbonded_V2;
     pd_dappsstaking_nomination_transfer_V2_t dappsstaking_nomination_transfer_V2;
-    pd_dappsstaking_claim_staker_V2_t dappsstaking_claim_staker_V2;
-    pd_dappsstaking_claim_dapp_V2_t dappsstaking_claim_dapp_V2;
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
 #endif
@@ -412,6 +399,17 @@ typedef struct {
     pd_CompactBalance_t amount;
 } pd_balances_transfer_keep_alive_V2_t;
 
+#define PD_CALL_DAPPSSTAKING_CLAIM_STAKER_V2 7
+typedef struct {
+    pd_SmartContract_t contract_id;
+} pd_dappsstaking_claim_staker_V2_t;
+
+#define PD_CALL_DAPPSSTAKING_CLAIM_DAPP_V2 8
+typedef struct {
+    pd_SmartContract_t contract_id;
+    pd_Compactu32_t era;
+} pd_dappsstaking_claim_dapp_V2_t;
+
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
 #endif
@@ -465,6 +463,8 @@ typedef union {
     pd_balances_transfer_V2_t balances_transfer_V2;
     pd_balances_force_transfer_V2_t balances_force_transfer_V2;
     pd_balances_transfer_keep_alive_V2_t balances_transfer_keep_alive_V2;
+    pd_dappsstaking_claim_staker_V2_t dappsstaking_claim_staker_V2;
+    pd_dappsstaking_claim_dapp_V2_t dappsstaking_claim_dapp_V2;
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
 #endif
@@ -486,4 +486,3 @@ typedef union {
 }
 #pragma clang diagnostic pop
 #endif
-
