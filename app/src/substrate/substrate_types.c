@@ -289,6 +289,7 @@ parser_error_t _readVecu8(parser_context_t* c, pd_Vecu8_t* v) {
 
 parser_error_t _readOptionTimepoint(parser_context_t* c, pd_OptionTimepoint_t* v)
 {
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readTimepoint(c, &v->contained))
