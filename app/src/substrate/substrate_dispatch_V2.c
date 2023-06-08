@@ -76,6 +76,46 @@ __Z_INLINE parser_error_t _readMethod_balances_transfer_all_V2(
     return parser_ok;
 }
 
+__Z_INLINE parser_error_t _readMethod_vesting_vest_V2(
+    parser_context_t* c, pd_vesting_vest_V2_t* m)
+{
+    UNUSED(c);
+    UNUSED(m);
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_vesting_vest_other_V2(
+    parser_context_t* c, pd_vesting_vest_other_V2_t* m)
+{
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->target))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_vesting_vested_transfer_V2(
+    parser_context_t* c, pd_vesting_vested_transfer_V2_t* m)
+{
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->target))
+    CHECK_ERROR(_readVestingInfo(c, &m->schedule))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_vesting_force_vested_transfer_V2(
+    parser_context_t* c, pd_vesting_force_vested_transfer_V2_t* m)
+{
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->source))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->target))
+    CHECK_ERROR(_readVestingInfo(c, &m->schedule))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_vesting_merge_schedules_V2(
+    parser_context_t* c, pd_vesting_merge_schedules_V2_t* m)
+{
+    CHECK_ERROR(_readu32(c, &m->schedule1_index))
+    CHECK_ERROR(_readu32(c, &m->schedule2_index))
+    return parser_ok;
+}
+
 __Z_INLINE parser_error_t _readMethod_dappsstaking_register_V2(
     parser_context_t* c, pd_dappsstaking_register_V2_t* m)
 {
@@ -143,6 +183,14 @@ __Z_INLINE parser_error_t _readMethod_dappsstaking_claim_dapp_V2(
 {
     CHECK_ERROR(_readSmartContract(c, &m->contract_id))
     CHECK_ERROR(_readCompactu32(c, &m->era))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_evm_withdraw_V2(
+    parser_context_t* c, pd_evm_withdraw_V2_t* m)
+{
+    CHECK_ERROR(_readH160(c, &m->address))
+    CHECK_ERROR(_readBalance(c, &m->amount))
     return parser_ok;
 }
 
@@ -534,6 +582,21 @@ parser_error_t _readMethod_V2(
     case 7940: /* module 31 call 4 */
         CHECK_ERROR(_readMethod_balances_transfer_all_V2(c, &method->basic.balances_transfer_all_V2))
         break;
+    case 8192: /* module 32 call 0 */
+        CHECK_ERROR(_readMethod_vesting_vest_V2(c, &method->nested.vesting_vest_V2))
+        break;
+    case 8193: /* module 32 call 1 */
+        CHECK_ERROR(_readMethod_vesting_vest_other_V2(c, &method->nested.vesting_vest_other_V2))
+        break;
+    case 8194: /* module 32 call 2 */
+        CHECK_ERROR(_readMethod_vesting_vested_transfer_V2(c, &method->nested.vesting_vested_transfer_V2))
+        break;
+    case 8195: /* module 32 call 3 */
+        CHECK_ERROR(_readMethod_vesting_force_vested_transfer_V2(c, &method->nested.vesting_force_vested_transfer_V2))
+        break;
+    case 8196: /* module 32 call 4 */
+        CHECK_ERROR(_readMethod_vesting_merge_schedules_V2(c, &method->nested.vesting_merge_schedules_V2))
+        break;
     case 8704: /* module 34 call 0 */
         CHECK_ERROR(_readMethod_dappsstaking_register_V2(c, &method->basic.dappsstaking_register_V2))
         break;
@@ -560,6 +623,9 @@ parser_error_t _readMethod_V2(
         break;
     case 8712: /* module 34 call 8 */
         CHECK_ERROR(_readMethod_dappsstaking_claim_dapp_V2(c, &method->nested.dappsstaking_claim_dapp_V2))
+        break;
+    case 15360: /* module 60 call 0 */
+        CHECK_ERROR(_readMethod_evm_withdraw_V2(c, &method->nested.evm_withdraw_V2))
         break;
 
 #ifdef SUBSTRATE_PARSER_FULL
@@ -708,8 +774,12 @@ const char* _getMethod_ModuleName_V2(uint8_t moduleIdx)
         return STR_MO_UTILITY;
     case 31:
         return STR_MO_BALANCES;
+    case 32:
+        return STR_MO_VESTING;
     case 34:
         return STR_MO_DAPPSSTAKING;
+    case 60:
+        return STR_MO_EVM;
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
 #endif
@@ -746,6 +816,16 @@ const char* _getMethod_Name_V2(uint8_t moduleIdx, uint8_t callIdx)
         return STR_ME_TRANSFER_KEEP_ALIVE;
     case 7940: /* module 31 call 4 */
         return STR_ME_TRANSFER_ALL;
+    case 8192: /* module 32 call 0 */
+        return STR_ME_VEST;
+    case 8193: /* module 32 call 1 */
+        return STR_ME_VEST_OTHER;
+    case 8194: /* module 32 call 2 */
+        return STR_ME_VESTED_TRANSFER;
+    case 8195: /* module 32 call 3 */
+        return STR_ME_FORCE_VESTED_TRANSFER;
+    case 8196: /* module 32 call 4 */
+        return STR_ME_MERGE_SCHEDULES;
     case 8704: /* module 34 call 0 */
         return STR_ME_REGISTER;
     case 8705: /* module 34 call 1 */
@@ -764,6 +844,8 @@ const char* _getMethod_Name_V2(uint8_t moduleIdx, uint8_t callIdx)
         return STR_ME_CLAIM_STAKER;
     case 8712: /* module 34 call 8 */
         return STR_ME_CLAIM_DAPP;
+    case 15360: /* module 60 call 0 */
+        return STR_ME_WITHDRAW;
     default:
         return _getMethod_Name_V2_ParserFull(callPrivIdx);
     }
@@ -886,6 +968,16 @@ uint8_t _getMethod_NumItems_V2(uint8_t moduleIdx, uint8_t callIdx)
         return 2;
     case 7940: /* module 31 call 4 */
         return 2;
+    case 8192: /* module 32 call 0 */
+        return 0;
+    case 8193: /* module 32 call 1 */
+        return 1;
+    case 8194: /* module 32 call 2 */
+        return 2;
+    case 8195: /* module 32 call 3 */
+        return 3;
+    case 8196: /* module 32 call 4 */
+        return 2;
     case 8704: /* module 34 call 0 */
         return 2;
     case 8705: /* module 34 call 1 */
@@ -903,6 +995,8 @@ uint8_t _getMethod_NumItems_V2(uint8_t moduleIdx, uint8_t callIdx)
     case 8711: /* module 34 call 7 */
         return 1;
     case 8712: /* module 34 call 8 */
+        return 2;
+    case 15360: /* module 60 call 0 */
         return 2;
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
@@ -1061,6 +1155,47 @@ const char* _getMethod_ItemName_V2(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
         default:
             return NULL;
         }
+    case 8192: /* module 32 call 0 */
+        switch (itemIdx) {
+        default:
+            return NULL;
+        }
+    case 8193: /* module 32 call 1 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_target;
+        default:
+            return NULL;
+        }
+    case 8194: /* module 32 call 2 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_target;
+        case 1:
+            return STR_IT_schedule;
+        default:
+            return NULL;
+        }
+    case 8195: /* module 32 call 3 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_source;
+        case 1:
+            return STR_IT_target;
+        case 2:
+            return STR_IT_schedule;
+        default:
+            return NULL;
+        }
+    case 8196: /* module 32 call 4 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_schedule1_index;
+        case 1:
+            return STR_IT_schedule2_index;
+        default:
+            return NULL;
+        }
     case 8704: /* module 34 call 0 */
         switch (itemIdx) {
         case 0:
@@ -1131,6 +1266,15 @@ const char* _getMethod_ItemName_V2(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
             return STR_IT_contract_id;
         case 1:
             return STR_IT_era;
+        default:
+            return NULL;
+        }
+    case 15360: /* module 60 call 0 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_address;
+        case 1:
+            return STR_IT_amount;
         default:
             return NULL;
         }
@@ -1662,6 +1806,71 @@ parser_error_t _getMethod_ItemValue_V2(
         default:
             return parser_no_data;
         }
+    case 8192: /* module 32 call 0 */
+        switch (itemIdx) {
+        default:
+            return parser_no_data;
+        }
+    case 8193: /* module 32 call 1 */
+        switch (itemIdx) {
+        case 0: /* vesting_vest_other_V2 - target */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.vesting_vest_other_V2.target,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 8194: /* module 32 call 2 */
+        switch (itemIdx) {
+        case 0: /* vesting_vested_transfer_V2 - target */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.vesting_vested_transfer_V2.target,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* vesting_vested_transfer_V2 - schedule */;
+            return _toStringVestingInfo(
+                &m->nested.vesting_vested_transfer_V2.schedule,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 8195: /* module 32 call 3 */
+        switch (itemIdx) {
+        case 0: /* vesting_force_vested_transfer_V2 - source */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.vesting_force_vested_transfer_V2.source,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* vesting_force_vested_transfer_V2 - target */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.vesting_force_vested_transfer_V2.target,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* vesting_force_vested_transfer_V2 - schedule */;
+            return _toStringVestingInfo(
+                &m->nested.vesting_force_vested_transfer_V2.schedule,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 8196: /* module 32 call 4 */
+        switch (itemIdx) {
+        case 0: /* vesting_merge_schedules_V2 - schedule1_index */;
+            return _toStringu32(
+                &m->nested.vesting_merge_schedules_V2.schedule1_index,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* vesting_merge_schedules_V2 - schedule2_index */;
+            return _toStringu32(
+                &m->nested.vesting_merge_schedules_V2.schedule2_index,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
     case 8704: /* module 34 call 0 */
         switch (itemIdx) {
         case 0: /* dappsstaking_register_V2 - developer */;
@@ -1772,6 +1981,21 @@ parser_error_t _getMethod_ItemValue_V2(
         case 1: /* dappsstaking_claim_dapp_V2 - era */;
             return _toStringCompactu32(
                 &m->nested.dappsstaking_claim_dapp_V2.era,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 15360: /* module 60 call 0 */
+        switch (itemIdx) {
+        case 0: /* evm_withdraw_V2 - address */;
+            return _toStringH160(
+                &m->nested.evm_withdraw_V2.address,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* evm_withdraw_V2 - amount */;
+            return _toStringBalance(
+                &m->nested.evm_withdraw_V2.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:

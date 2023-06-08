@@ -34,6 +34,9 @@ const defaultOptions = {
   X11: false,
 }
 
+const expected_address = 'bNN62JArmdcrJ1Enw4546wjeo1Gmi5Xm5vvEpNSeA3MH6CJ'
+const expected_pk = 'f04b131edce869a57d2c63b512e27493e6ba26a0d318c3a31917215fd9d11e5d'
+
 jest.setTimeout(180000)
 
 describe('SR25519', function () {
@@ -49,9 +52,6 @@ describe('SR25519', function () {
 
       expect(resp.return_code).toEqual(0x9000)
       expect(resp.error_message).toEqual('No errors')
-
-      const expected_address = 'bNN62JArmdcrJ1Enw4546wjeo1Gmi5Xm5vvEpNSeA3MH6CJ'
-      const expected_pk = 'f04b131edce869a57d2c63b512e27493e6ba26a0d318c3a31917215fd9d11e5d'
 
       expect(resp.address).toEqual(expected_address)
       expect(resp.pubKey).toEqual(expected_pk)
@@ -76,9 +76,6 @@ describe('SR25519', function () {
 
       expect(resp.return_code).toEqual(0x9000)
       expect(resp.error_message).toEqual('No errors')
-
-      const expected_address = 'bNN62JArmdcrJ1Enw4546wjeo1Gmi5Xm5vvEpNSeA3MH6CJ'
-      const expected_pk = 'f04b131edce869a57d2c63b512e27493e6ba26a0d318c3a31917215fd9d11e5d'
 
       expect(resp.address).toEqual(expected_address)
       expect(resp.pubKey).toEqual(expected_pk)
@@ -126,7 +123,7 @@ describe('SR25519', function () {
       const signatureRequest = app.sign(pathAccount, pathChange, pathIndex, txBlob, 1)
       // Wait until we are not in the main menu
       await sim.waitUntilScreenIsNot(sim.getMainMenuSnapshot())
-      await sim.compareSnapshotsAndApprove('.', 's-sign_basic_normal')
+      await sim.compareSnapshotsAndApprove('.', 's-sign_basic_normal_sr25519')
 
       const signatureResponse = await signatureRequest
       console.log(signatureResponse)
@@ -173,7 +170,7 @@ describe('SR25519', function () {
 
       // Wait until we are not in the main menu
       await sim.waitUntilScreenIsNot(sim.getMainMenuSnapshot())
-      await sim.compareSnapshotsAndApprove('.', 's-sign_basic_expert')
+      await sim.compareSnapshotsAndApprove('.', 's-sign_basic_expert_sr25519')
 
       const signatureResponse = await signatureRequest
       console.log(signatureResponse)

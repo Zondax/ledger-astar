@@ -34,7 +34,9 @@ parser_error_t _readCompactu32(parser_context_t* c, pd_Compactu32_t* v);
 parser_error_t _readCompactu64(parser_context_t* c, pd_Compactu64_t* v);
 parser_error_t _readCallImpl(parser_context_t* c, pd_Call_t* v, pd_MethodNested_t* m);
 
+parser_error_t _readBalance(parser_context_t* c, pd_Balance_t* v);
 parser_error_t _readAccountId(parser_context_t* c, pd_AccountId_t* v);
+parser_error_t _readBalanceOf(parser_context_t* c, pd_BalanceOf_t* v);
 parser_error_t _readBytes(parser_context_t* c, pd_Bytes_t* v);
 parser_error_t _readCall(parser_context_t* c, pd_Call_t* v);
 parser_error_t _readCompactAccountIndex(parser_context_t* c, pd_CompactAccountIndex_t* v);
@@ -45,8 +47,8 @@ parser_error_t _readContractStakeInfoBalanceOfT(parser_context_t* c, pd_Contract
 parser_error_t _readOptionTimepoint(parser_context_t* c, pd_OptionTimepoint_t* v);
 parser_error_t _readSmartContract(parser_context_t* c, pd_SmartContract_t* v);
 parser_error_t _readVecCall(parser_context_t* c, pd_VecCall_t* v);
+parser_error_t _readVestingInfo(parser_context_t* c, pd_VestingInfo_t* v);
 parser_error_t _readWeight(parser_context_t* c, pd_Weight_t* v);
-parser_error_t _readBalance(parser_context_t* c, pd_Balance_t* v);
 parser_error_t _readCompactu128(parser_context_t* c, pd_Compactu128_t* v);
 parser_error_t _readDappsRewardDestination(parser_context_t* c, pd_DappsRewardDestination_t* v);
 parser_error_t _readEraIndex(parser_context_t* c, pd_EraIndex_t* v);
@@ -113,8 +115,22 @@ parser_error_t _toStringCompactu64(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
+parser_error_t _toStringBalance(
+    const pd_Balance_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
 parser_error_t _toStringAccountId(
     const pd_AccountId_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringBalanceOf(
+    const pd_BalanceOf_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -190,15 +206,15 @@ parser_error_t _toStringVecCall(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringWeight(
-    const pd_Weight_t* v,
+parser_error_t _toStringVestingInfo(
+    const pd_VestingInfo_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringBalance(
-    const pd_Balance_t* v,
+parser_error_t _toStringWeight(
+    const pd_Weight_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,

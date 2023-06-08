@@ -24,8 +24,10 @@ static const char* STR_MO_SYSTEM = "System";
 static const char* STR_MO_UTILITY = "Utility";
 static const char* STR_MO_MULTISIG = "Multisig";
 static const char* STR_MO_BALANCES = "Balances";
+static const char* STR_MO_VESTING = "Vesting";
 static const char* STR_MO_DAPPSSTAKING = "Dappsstaking";
 static const char* STR_MO_ASSETS = "Assets";
+static const char* STR_MO_EVM = "Evm";
 
 // Methods names
 static const char* STR_ME_REMARK = "Remark";
@@ -43,6 +45,11 @@ static const char* STR_ME_FORCE_TRANSFER = "Force transfer";
 static const char* STR_ME_TRANSFER_KEEP_ALIVE = "Transfer keep alive";
 static const char* STR_ME_TRANSFER_ALL = "Transfer all";
 static const char* STR_ME_FORCE_UNRESERVE = "Force unreserve";
+static const char* STR_ME_VEST = "Vest";
+static const char* STR_ME_VEST_OTHER = "Vest other";
+static const char* STR_ME_VESTED_TRANSFER = "Vested transfer";
+static const char* STR_ME_FORCE_VESTED_TRANSFER = "Force vested transfer";
+static const char* STR_ME_MERGE_SCHEDULES = "Merge schedules";
 static const char* STR_ME_REGISTER = "Register";
 static const char* STR_ME_UNREGISTER = "Unregister";
 static const char* STR_ME_WITHDRAW_FROM_UNREGISTERED = "Withdraw from unregistered";
@@ -82,6 +89,7 @@ static const char* STR_ME_FORCE_CANCEL_APPROVAL = "Force cancel approval";
 static const char* STR_ME_TRANSFER_APPROVED = "Transfer approved";
 static const char* STR_ME_TOUCH = "Touch";
 static const char* STR_ME_REFUND = "Refund";
+static const char* STR_ME_WITHDRAW = "Withdraw";
 
 // Items names
 static const char* STR_IT_remark = "Remark";
@@ -109,6 +117,10 @@ static const char* STR_IT_new_free = "New free";
 static const char* STR_IT_new_reserved = "New reserved";
 static const char* STR_IT_source = "Source";
 static const char* STR_IT_keep_alive = "Keep alive";
+static const char* STR_IT_target = "Target";
+static const char* STR_IT_schedule = "Schedule";
+static const char* STR_IT_schedule1_index = "Schedule1 index";
+static const char* STR_IT_schedule2_index = "Schedule2 index";
 static const char* STR_IT_developer = "Developer";
 static const char* STR_IT_contract_id = "Contract id";
 static const char* STR_IT_origin_contract_id = "Origin contract id";
@@ -124,7 +136,6 @@ static const char* STR_IT_min_balance = "Min balance";
 static const char* STR_IT_owner = "Owner";
 static const char* STR_IT_is_sufficient = "Is sufficient";
 static const char* STR_IT_beneficiary = "Beneficiary";
-static const char* STR_IT_target = "Target";
 static const char* STR_IT_issuer = "Issuer";
 static const char* STR_IT_freezer = "Freezer";
 static const char* STR_IT_name = "Name";
@@ -134,6 +145,16 @@ static const char* STR_IT_is_frozen = "Is frozen";
 static const char* STR_IT_delegate = "Delegate";
 static const char* STR_IT_destination = "Destination";
 static const char* STR_IT_allow_burn = "Allow burn";
+static const char* STR_IT_address = "Address";
+static const char* STR_IT_input = "Input";
+static const char* STR_IT_value = "Value";
+static const char* STR_IT_gas_limit = "Gas limit";
+static const char* STR_IT_max_fee_per_gas = "Max fee per gas";
+static const char* STR_IT_max_priority_fee_per_gas = "Max priority fee per gas";
+static const char* STR_IT_nonce = "Nonce";
+static const char* STR_IT_access_list = "Access list";
+static const char* STR_IT_init = "Init";
+static const char* STR_IT_salt = "Salt";
 
 #ifdef __cplusplus
 }
