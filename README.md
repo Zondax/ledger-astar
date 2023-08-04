@@ -28,7 +28,7 @@ Please:
 - **Do not use in production**
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
-# Astar 2.52.x
+# Astar 2.57.x
 
 ## System
 
@@ -116,13 +116,13 @@ Please:
 
 ## Vesting
 
-| Name                  | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                                                |
-| --------------------- | ------ | --------- | --------- | ------- | ---------------------------------------------------------------------------------------- |
-| Vest                  |        |           |           |         |                                                                                          |
-| Vest other            |        |           |           |         | `AccountIdLookupOfT`target<br/>                                                          |
-| Vested transfer       |        |           |           |         | `AccountIdLookupOfT`target<br/>`VestingInfo`schedule<br/>                                |
-| Force vested transfer |        |           |           |         | `AccountIdLookupOfT`source<br/>`AccountIdLookupOfT`target<br/>`VestingInfo`schedule<br/> |
-| Merge schedules       |        |           |           |         | `u32`schedule1_index<br/>`u32`schedule2_index<br/>                                       |
+| Name                  | Nano S             | Nano S XL          | Nano SP/X          | Nesting            | Arguments                                                                                |
+| --------------------- | ------------------ | ------------------ | ------------------ | ------------------ | ---------------------------------------------------------------------------------------- |
+| Vest                  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                                                          |
+| Vest other            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT`target<br/>                                                          |
+| Vested transfer       | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT`target<br/>`VestingInfo`schedule<br/>                                |
+| Force vested transfer | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT`source<br/>`AccountIdLookupOfT`target<br/>`VestingInfo`schedule<br/> |
+| Merge schedules       | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `u32`schedule1_index<br/>`u32`schedule2_index<br/>                                       |
 
 ## DappsStaking
 
@@ -259,12 +259,12 @@ Please:
 
 ## EVM
 
-| Name     | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                                                                                                                                                                            |
-| -------- | ------ | --------- | --------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Withdraw |        |           |           |         | `H160`address<br/>`Balance`amount<br/>                                                                                                                                                                               |
-| Call     |        |           |           |         | `H160`source<br/>`H160`target<br/>`Vecu8`input<br/>`U256`value<br/>`u64`gas_limit<br/>`U256`max_fee_per_gas<br/>`OptionU256`max_priority_fee_per_gas<br/>`OptionU256`nonce<br/>`VecTupleH160VecH256`access_list<br/> |
-| Create   |        |           |           |         | `H160`source<br/>`Vecu8`init<br/>`U256`value<br/>`u64`gas_limit<br/>`U256`max_fee_per_gas<br/>`OptionU256`max_priority_fee_per_gas<br/>`OptionU256`nonce<br/>`VecTupleH160VecH256`access_list<br/>                   |
-| Create2  |        |           |           |         | `H160`source<br/>`Vecu8`init<br/>`H256`salt<br/>`U256`value<br/>`u64`gas_limit<br/>`U256`max_fee_per_gas<br/>`OptionU256`max_priority_fee_per_gas<br/>`OptionU256`nonce<br/>`VecTupleH160VecH256`access_list<br/>    |
+| Name     | Nano S             | Nano S XL          | Nano SP/X          | Nesting            | Arguments                                                                                                                                                                                                            |
+| -------- | ------------------ | ------------------ | ------------------ | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Withdraw | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `H160`address<br/>`Balance`amount<br/>                                                                                                                                                                               |
+| Call     |                    |                    |                    |                    | `H160`source<br/>`H160`target<br/>`Vecu8`input<br/>`U256`value<br/>`u64`gas_limit<br/>`U256`max_fee_per_gas<br/>`OptionU256`max_priority_fee_per_gas<br/>`OptionU256`nonce<br/>`VecTupleH160VecH256`access_list<br/> |
+| Create   |                    |                    |                    |                    | `H160`source<br/>`Vecu8`init<br/>`U256`value<br/>`u64`gas_limit<br/>`U256`max_fee_per_gas<br/>`OptionU256`max_priority_fee_per_gas<br/>`OptionU256`nonce<br/>`VecTupleH160VecH256`access_list<br/>                   |
+| Create2  |                    |                    |                    |                    | `H160`source<br/>`Vecu8`init<br/>`H256`salt<br/>`U256`value<br/>`u64`gas_limit<br/>`U256`max_fee_per_gas<br/>`OptionU256`max_priority_fee_per_gas<br/>`OptionU256`nonce<br/>`VecTupleH160VecH256`access_list<br/>    |
 
 ## Ethereum
 
@@ -284,6 +284,20 @@ Please:
 | -------------------- | ------ | --------- | --------- | ------- | ------------------------ |
 | Set base fee per gas |        |           |           |         | `U256`fee<br/>           |
 | Set elasticity       |        |           |           |         | `Permill`elasticity<br/> |
+
+## Contracts
+
+| Name                             | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                                                                                                                       |
+| -------------------------------- | ------ | --------- | --------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Call old weight                  |        |           |           |         | `AccountIdLookupOfT`dest<br/>`CompactBalance`amount<br/>`Compactu64`gas_limit<br/>`OptionCompactBalanceOf`storage_deposit_limit<br/>`Vecu8`data<br/>            |
+| Instantiate with code old weight |        |           |           |         | `CompactBalance`amount<br/>`Compactu64`gas_limit<br/>`OptionCompactBalanceOf`storage_deposit_limit<br/>`Vecu8`code<br/>`Vecu8`data<br/>`Vecu8`salt<br/>         |
+| Instantiate old weight           |        |           |           |         | `CompactBalance`amount<br/>`Compactu64`gas_limit<br/>`OptionCompactBalanceOf`storage_deposit_limit<br/>`CodeHash`code_hash<br/>`Vecu8`data<br/>`Vecu8`salt<br/> |
+| Upload code                      |        |           |           |         | `Vecu8`code<br/>`OptionCompactBalanceOf`storage_deposit_limit<br/>`Determinism`determinism<br/>                                                                 |
+| Remove code                      |        |           |           |         | `CodeHash`code_hash<br/>                                                                                                                                        |
+| Set code                         |        |           |           |         | `AccountIdLookupOfT`dest<br/>`CodeHash`code_hash<br/>                                                                                                           |
+| Call                             |        |           |           |         | `AccountIdLookupOfT`dest<br/>`CompactBalance`amount<br/>`Weight`gas_limit<br/>`OptionCompactBalanceOf`storage_deposit_limit<br/>`Vecu8`data<br/>                |
+| Instantiate with code            |        |           |           |         | `CompactBalance`amount<br/>`Weight`gas_limit<br/>`OptionCompactBalanceOf`storage_deposit_limit<br/>`Vecu8`code<br/>`Vecu8`data<br/>`Vecu8`salt<br/>             |
+| Instantiate                      |        |           |           |         | `CompactBalance`amount<br/>`Weight`gas_limit<br/>`OptionCompactBalanceOf`storage_deposit_limit<br/>`CodeHash`code_hash<br/>`Bytes`data<br/>`Bytes`salt<br/>     |
 
 ## Sudo
 

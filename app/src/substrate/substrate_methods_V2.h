@@ -34,8 +34,10 @@ extern "C" {
 #define PD_CALL_UTILITY_V2 11
 #define PD_CALL_MULTISIG_V2 14
 #define PD_CALL_BALANCES_V2 31
+#define PD_CALL_VESTING_V2 32
 #define PD_CALL_DAPPSSTAKING_V2 34
 #define PD_CALL_ASSETS_V2 36
+#define PD_CALL_EVM_V2 60
 
 #define PD_CALL_UTILITY_BATCH_V2 0
 typedef struct {
@@ -399,6 +401,34 @@ typedef struct {
     pd_CompactBalance_t amount;
 } pd_balances_transfer_keep_alive_V2_t;
 
+#define PD_CALL_VESTING_VEST_V2 0
+typedef struct {
+} pd_vesting_vest_V2_t;
+
+#define PD_CALL_VESTING_VEST_OTHER_V2 1
+typedef struct {
+    pd_AccountIdLookupOfT_t target;
+} pd_vesting_vest_other_V2_t;
+
+#define PD_CALL_VESTING_VESTED_TRANSFER_V2 2
+typedef struct {
+    pd_AccountIdLookupOfT_t target;
+    pd_VestingInfo_t schedule;
+} pd_vesting_vested_transfer_V2_t;
+
+#define PD_CALL_VESTING_FORCE_VESTED_TRANSFER_V2 3
+typedef struct {
+    pd_AccountIdLookupOfT_t source;
+    pd_AccountIdLookupOfT_t target;
+    pd_VestingInfo_t schedule;
+} pd_vesting_force_vested_transfer_V2_t;
+
+#define PD_CALL_VESTING_MERGE_SCHEDULES_V2 4
+typedef struct {
+    pd_u32_t schedule1_index;
+    pd_u32_t schedule2_index;
+} pd_vesting_merge_schedules_V2_t;
+
 #define PD_CALL_DAPPSSTAKING_CLAIM_STAKER_V2 7
 typedef struct {
     pd_SmartContract_t contract_id;
@@ -409,6 +439,12 @@ typedef struct {
     pd_SmartContract_t contract_id;
     pd_Compactu32_t era;
 } pd_dappsstaking_claim_dapp_V2_t;
+
+#define PD_CALL_EVM_WITHDRAW_V2 0
+typedef struct {
+    pd_H160_t address;
+    pd_Balance_t amount;
+} pd_evm_withdraw_V2_t;
 
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
@@ -463,8 +499,14 @@ typedef union {
     pd_balances_transfer_V2_t balances_transfer_V2;
     pd_balances_force_transfer_V2_t balances_force_transfer_V2;
     pd_balances_transfer_keep_alive_V2_t balances_transfer_keep_alive_V2;
+    pd_vesting_vest_V2_t vesting_vest_V2;
+    pd_vesting_vest_other_V2_t vesting_vest_other_V2;
+    pd_vesting_vested_transfer_V2_t vesting_vested_transfer_V2;
+    pd_vesting_force_vested_transfer_V2_t vesting_force_vested_transfer_V2;
+    pd_vesting_merge_schedules_V2_t vesting_merge_schedules_V2;
     pd_dappsstaking_claim_staker_V2_t dappsstaking_claim_staker_V2;
     pd_dappsstaking_claim_dapp_V2_t dappsstaking_claim_dapp_V2;
+    pd_evm_withdraw_V2_t evm_withdraw_V2;
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
 #endif

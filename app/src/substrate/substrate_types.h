@@ -120,7 +120,15 @@ typedef struct {
 
 typedef struct {
     const uint8_t* _ptr;
+} pd_Balance_t;
+
+typedef struct {
+    const uint8_t* _ptr;
 } pd_AccountId_t;
+
+typedef struct {
+    pd_Balance_t value;
+} pd_BalanceOf_t;
 
 typedef struct {
     uint64_t _len;
@@ -183,13 +191,15 @@ typedef struct {
 } pd_VecCall_t;
 
 typedef struct {
+    pd_BalanceOf_t locked;
+    pd_BalanceOf_t per_block;
+    pd_BlockNumber_t starting_block;
+} pd_VestingInfo_t;
+
+typedef struct {
     pd_Compactu64_t refTime;
     pd_Compactu64_t proofSize;
 } pd_Weight_t;
-
-typedef struct {
-    const uint8_t* _ptr;
-} pd_Balance_t;
 
 typedef compactInt_t pd_Compactu128_t;
 
