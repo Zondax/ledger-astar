@@ -21,7 +21,6 @@ import { APP_SEED, models } from './common'
 // @ts-expect-error missing typings
 import ed25519 from 'ed25519-supercop'
 import { blake2bFinal, blake2bInit, blake2bUpdate } from 'blakejs'
-import { txBalances_transferAllowDeath, txUtility_batch } from './zemu_blobs'
 
 const defaultOptions = {
   ...DEFAULT_START_OPTIONS,
@@ -32,19 +31,19 @@ const defaultOptions = {
 
 jest.setTimeout(180000)
 
-const TXNS = [
+const TESTS = [
   {
-    name: 'balances_transfer',
-    blob: txBalances_transferAllowDeath,
+    name: 'raw_sign',
+    text: '<Bytes>This is our test payload!</Bytes>',
   },
   {
-    name: 'txUtility_batch',
-    blob: txUtility_batch,
+    name: 'raw_sign_hex',
+    text: '<Bytes>This is our test payload with emoji! 😉</Bytes>',
   },
 ]
 
-describe.each(TXNS)('Transactions', function (data) {
-  test.concurrent.each(models)(`Test: ${data.name}`, async function (m) {
+describe.each(TESTS)('Raw signing', function (data) {
+  test.concurrent.each(models)(`${data.name}`, async function (m) {
     const sim = new Zemu(m.path)
     try {
       await sim.start({ ...defaultOptions, model: m.name })
@@ -53,13 +52,14 @@ describe.each(TXNS)('Transactions', function (data) {
       const pathChange = 0x80000000
       const pathIndex = 0x80000000
 
-      const txBlob = Buffer.from(data.blob, 'hex')
+      const txBlob = Buffer.from(data.text)
 
       const responseAddr = await app.getAddress(pathAccount, pathChange, pathIndex)
       const pubKey = Buffer.from(responseAddr.pubKey, 'hex')
 
       // do not wait here.. we need to navigate
-      const signatureRequest = app.sign(pathAccount, pathChange, pathIndex, txBlob)
+      const signatureRequest = app.signRaw(pathAccount, pathChange, pathIndex, txBlob)
+
       // Wait until we are not in the main menu
       await sim.waitUntilScreenIsNot(sim.getMainMenuSnapshot())
 
@@ -86,7 +86,7 @@ describe.each(TXNS)('Transactions', function (data) {
   })
 })
 
-test.concurrent.each(models)('balances transfer expert', async function (m) {
+test.concurrent.each(models)('raw signing - incorrect', async function (m) {
   const sim = new Zemu(m.path)
   try {
     await sim.start({ ...defaultOptions, model: m.name })
@@ -95,37 +95,14 @@ test.concurrent.each(models)('balances transfer expert', async function (m) {
     const pathChange = 0x80000000
     const pathIndex = 0x80000000
 
-    // Change to expert mode
-    await sim.toggleExpertMode()
+    const txBlob = Buffer.from('<Bytes>Incorrect blob/Bytes>')
 
-    const txBlob = Buffer.from(txBalances_transferAllowDeath, 'hex')
+    const signatureResponse = await app.signRaw(pathAccount, pathChange, pathIndex, txBlob)
 
-    const responseAddr = await app.getAddress(pathAccount, pathChange, pathIndex)
-    const pubKey = Buffer.from(responseAddr.pubKey, 'hex')
-
-    // do not wait here.. we need to navigate
-    const signatureRequest = app.sign(pathAccount, pathChange, pathIndex, txBlob)
-
-    // Wait until we are not in the main menu
-    await sim.waitUntilScreenIsNot(sim.getMainMenuSnapshot())
-
-    await sim.compareSnapshotsAndApprove('.', `${m.prefix.toLowerCase()}-balances_transfer_expert`)
-
-    const signatureResponse = await signatureRequest
     console.log(signatureResponse)
 
-    expect(signatureResponse.return_code).toEqual(0x9000)
-    expect(signatureResponse.error_message).toEqual('No errors')
-
-    // Now verify the signature
-    let prehash = txBlob
-    if (txBlob.length > 256) {
-      const context = blake2bInit(32)
-      blake2bUpdate(context, txBlob)
-      prehash = Buffer.from(blake2bFinal(context))
-    }
-    const valid = ed25519.verify(signatureResponse.signature.subarray(1), prehash, pubKey)
-    expect(valid).toEqual(true)
+    expect(signatureResponse.return_code).toEqual(0x6984)
+    expect(signatureResponse.error_message).toEqual('Unexpected value')
   } finally {
     await sim.close()
   }
