@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2023 Zondax AG
+ *  (c) 2019 - 2024 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ uint8_t _getMethod_NumItems(uint32_t transactionVersion, uint8_t moduleIdx, uint
     case 2:
         return _getMethod_NumItems_V2(moduleIdx, callIdx);
     default:
-        return parser_tx_version_not_supported;
+        return 0;
     }
 }
 
@@ -59,7 +59,7 @@ const char* _getMethod_Name(uint32_t transactionVersion, uint8_t moduleIdx, uint
     case 2:
         return _getMethod_Name_V2(moduleIdx, callIdx);
     default:
-        return 0;
+        return NULL;
     }
 }
 
