@@ -637,6 +637,7 @@ parser_error_t _toStringProxyType(
     uint8_t* pageCount)
 {
     CLEAN_AND_CHECK()
+    UNUSED(pageIdx);
     *pageCount = 1;
     switch (v->value) {
     case 0:
