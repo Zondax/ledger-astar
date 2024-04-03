@@ -33,13 +33,13 @@ extern "C" {
 #define PD_CALL_SYSTEM_V2 10
 #define PD_CALL_UTILITY_V2 11
 #define PD_CALL_MULTISIG_V2 14
+#define PD_CALL_PROXY_V2 15
 #define PD_CALL_BALANCES_V2 31
 #define PD_CALL_VESTING_V2 32
 #define PD_CALL_DAPPSTAKING_V2 34
 #define PD_CALL_ASSETS_V2 36
 #define PD_CALL_EVM_V2 60
 #define PD_CALL_DAPPSTAKINGMIGRATION_V2 254
-#define PD_CALL_DAPPSSTAKING_V2 255
 
 #define PD_CALL_UTILITY_BATCH_V2 0
 typedef struct {
@@ -56,45 +56,6 @@ typedef struct {
     pd_VecCall_t calls;
 } pd_utility_force_batch_V2_t;
 
-#define PD_CALL_DAPPSSTAKING_REGISTER_V2 0
-typedef struct {
-    pd_AccountId_t developer;
-    pd_SmartContract_t contract_id;
-} pd_dappsstaking_register_V2_t;
-
-#define PD_CALL_DAPPSSTAKING_UNREGISTER_V2 1
-typedef struct {
-    pd_SmartContract_t contract_id;
-} pd_dappsstaking_unregister_V2_t;
-
-#define PD_CALL_DAPPSSTAKING_WITHDRAW_FROM_UNREGISTERED_V2 2
-typedef struct {
-    pd_SmartContract_t contract_id;
-} pd_dappsstaking_withdraw_from_unregistered_V2_t;
-
-#define PD_CALL_DAPPSSTAKING_BOND_AND_STAKE_V2 3
-typedef struct {
-    pd_SmartContract_t contract_id;
-    pd_Compactu128_t amount;
-} pd_dappsstaking_bond_and_stake_V2_t;
-
-#define PD_CALL_DAPPSSTAKING_UNBOND_AND_UNSTAKE_V2 4
-typedef struct {
-    pd_SmartContract_t contract_id;
-    pd_Compactu128_t amount;
-} pd_dappsstaking_unbond_and_unstake_V2_t;
-
-#define PD_CALL_DAPPSSTAKING_WITHDRAW_UNBONDED_V2 5
-typedef struct {
-} pd_dappsstaking_withdraw_unbonded_V2_t;
-
-#define PD_CALL_DAPPSSTAKING_NOMINATION_TRANSFER_V2 6
-typedef struct {
-    pd_SmartContract_t origin_contract_id;
-    pd_Compactu128_t amount;
-    pd_SmartContract_t target_contract_id;
-} pd_dappsstaking_nomination_transfer_V2_t;
-
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
 #endif
@@ -104,6 +65,36 @@ typedef struct {
     pd_Call_t call;
     pd_Weight_t weight;
 } pd_utility_with_weight_V2_t;
+
+#define PD_CALL_PROXY_REMOVE_PROXIES_V2 3
+typedef struct {
+} pd_proxy_remove_proxies_V2_t;
+
+#define PD_CALL_PROXY_ANNOUNCE_V2 6
+typedef struct {
+    pd_AccountIdLookupOfT_t real;
+    pd_CallHashOf_t call_hash;
+} pd_proxy_announce_V2_t;
+
+#define PD_CALL_PROXY_REMOVE_ANNOUNCEMENT_V2 7
+typedef struct {
+    pd_AccountIdLookupOfT_t real;
+    pd_CallHashOf_t call_hash;
+} pd_proxy_remove_announcement_V2_t;
+
+#define PD_CALL_PROXY_REJECT_ANNOUNCEMENT_V2 8
+typedef struct {
+    pd_AccountIdLookupOfT_t delegate;
+    pd_CallHashOf_t call_hash;
+} pd_proxy_reject_announcement_V2_t;
+
+#define PD_CALL_PROXY_PROXY_ANNOUNCED_V2 9
+typedef struct {
+    pd_AccountIdLookupOfT_t delegate;
+    pd_AccountIdLookupOfT_t real;
+    pd_OptionProxyType_t force_proxy_type;
+    pd_Call_t call;
+} pd_proxy_proxy_announced_V2_t;
 
 #define PD_CALL_BALANCES_FORCE_UNRESERVE_V2 5
 typedef struct {
@@ -331,66 +322,21 @@ typedef struct {
     pd_AccountIdLookupOfT_t who;
 } pd_assets_block_V2_t;
 
-#define PD_CALL_DAPPSSTAKING_FORCE_NEW_ERA_V2 9
-typedef struct {
-} pd_dappsstaking_force_new_era_V2_t;
-
-#define PD_CALL_DAPPSSTAKING_MAINTENANCE_MODE_V2 10
-typedef struct {
-    pd_bool_t enable_maintenance;
-} pd_dappsstaking_maintenance_mode_V2_t;
-
-#define PD_CALL_DAPPSSTAKING_SET_REWARD_DESTINATION_V2 11
-typedef struct {
-    pd_DappsRewardDestination_t reward_destination;
-} pd_dappsstaking_set_reward_destination_V2_t;
-
-#define PD_CALL_DAPPSSTAKING_SET_CONTRACT_STAKE_INFO_V2 12
-typedef struct {
-    pd_SmartContract_t contract;
-    pd_EraIndex_t era;
-    pd_ContractStakeInfo_t contract_stake_info;
-} pd_dappsstaking_set_contract_stake_info_V2_t;
-
-#define PD_CALL_DAPPSSTAKING_BURN_STALE_REWARD_V2 13
-typedef struct {
-    pd_SmartContract_t contract_id;
-    pd_Compactu32_t era;
-} pd_dappsstaking_burn_stale_reward_V2_t;
-
-#define PD_CALL_DAPPSSTAKING_CLAIM_STAKER_FOR_V2 14
-typedef struct {
-    pd_AccountId_t staker;
-    pd_SmartContract_t contract_id;
-} pd_dappsstaking_claim_staker_for_V2_t;
-
-#define PD_CALL_DAPPSSTAKING_SET_REWARD_DESTINATION_FOR_V2 15
-typedef struct {
-    pd_AccountId_t staker;
-    pd_DappsRewardDestination_t reward_destination;
-} pd_dappsstaking_set_reward_destination_for_V2_t;
-
-#define PD_CALL_DAPPSSTAKING_DECOMMISSION_V2 16
-typedef struct {
-} pd_dappsstaking_decommission_V2_t;
-
 #endif
 
 typedef union {
     pd_utility_batch_V2_t utility_batch_V2;
     pd_utility_batch_all_V2_t utility_batch_all_V2;
     pd_utility_force_batch_V2_t utility_force_batch_V2;
-    pd_dappsstaking_register_V2_t dappsstaking_register_V2;
-    pd_dappsstaking_unregister_V2_t dappsstaking_unregister_V2;
-    pd_dappsstaking_withdraw_from_unregistered_V2_t dappsstaking_withdraw_from_unregistered_V2;
-    pd_dappsstaking_bond_and_stake_V2_t dappsstaking_bond_and_stake_V2;
-    pd_dappsstaking_unbond_and_unstake_V2_t dappsstaking_unbond_and_unstake_V2;
-    pd_dappsstaking_withdraw_unbonded_V2_t dappsstaking_withdraw_unbonded_V2;
-    pd_dappsstaking_nomination_transfer_V2_t dappsstaking_nomination_transfer_V2;
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
 #endif
     pd_utility_with_weight_V2_t utility_with_weight_V2;
+    pd_proxy_remove_proxies_V2_t proxy_remove_proxies_V2;
+    pd_proxy_announce_V2_t proxy_announce_V2;
+    pd_proxy_remove_announcement_V2_t proxy_remove_announcement_V2;
+    pd_proxy_reject_announcement_V2_t proxy_reject_announcement_V2;
+    pd_proxy_proxy_announced_V2_t proxy_proxy_announced_V2;
     pd_balances_force_unreserve_V2_t balances_force_unreserve_V2;
     pd_balances_upgrade_accounts_V2_t balances_upgrade_accounts_V2;
     pd_balances_force_set_balance_V2_t balances_force_set_balance_V2;
@@ -426,14 +372,6 @@ typedef union {
     pd_assets_touch_other_V2_t assets_touch_other_V2;
     pd_assets_refund_other_V2_t assets_refund_other_V2;
     pd_assets_block_V2_t assets_block_V2;
-    pd_dappsstaking_force_new_era_V2_t dappsstaking_force_new_era_V2;
-    pd_dappsstaking_maintenance_mode_V2_t dappsstaking_maintenance_mode_V2;
-    pd_dappsstaking_set_reward_destination_V2_t dappsstaking_set_reward_destination_V2;
-    pd_dappsstaking_set_contract_stake_info_V2_t dappsstaking_set_contract_stake_info_V2;
-    pd_dappsstaking_burn_stale_reward_V2_t dappsstaking_burn_stale_reward_V2;
-    pd_dappsstaking_claim_staker_for_V2_t dappsstaking_claim_staker_for_V2;
-    pd_dappsstaking_set_reward_destination_for_V2_t dappsstaking_set_reward_destination_for_V2;
-    pd_dappsstaking_decommission_V2_t dappsstaking_decommission_V2;
 #endif
 } pd_MethodBasic_V2_t;
 
@@ -599,17 +537,6 @@ typedef struct {
     pd_OptionWeight_t weight_limit;
 } pd_dappstakingmigration_migrate_V2_t;
 
-#define PD_CALL_DAPPSSTAKING_CLAIM_STAKER_V2 7
-typedef struct {
-    pd_SmartContract_t contract_id;
-} pd_dappsstaking_claim_staker_V2_t;
-
-#define PD_CALL_DAPPSSTAKING_CLAIM_DAPP_V2 8
-typedef struct {
-    pd_SmartContract_t contract_id;
-    pd_Compactu32_t era;
-} pd_dappsstaking_claim_dapp_V2_t;
-
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
 #endif
@@ -649,6 +576,43 @@ typedef struct {
     pd_Timepoint_t timepoint;
     pd_H256_t call_hash;
 } pd_multisig_cancel_as_multi_V2_t;
+
+#define PD_CALL_PROXY_PROXY_V2 0
+typedef struct {
+    pd_AccountIdLookupOfT_t real;
+    pd_OptionProxyType_t force_proxy_type;
+    pd_Call_t call;
+} pd_proxy_proxy_V2_t;
+
+#define PD_CALL_PROXY_ADD_PROXY_V2 1
+typedef struct {
+    pd_AccountIdLookupOfT_t delegate;
+    pd_ProxyType_t proxy_type;
+    pd_BlockNumber_t delay;
+} pd_proxy_add_proxy_V2_t;
+
+#define PD_CALL_PROXY_REMOVE_PROXY_V2 2
+typedef struct {
+    pd_AccountIdLookupOfT_t delegate;
+    pd_ProxyType_t proxy_type;
+    pd_BlockNumber_t delay;
+} pd_proxy_remove_proxy_V2_t;
+
+#define PD_CALL_PROXY_CREATE_PURE_V2 4
+typedef struct {
+    pd_ProxyType_t proxy_type;
+    pd_BlockNumber_t delay;
+    pd_u16_t index;
+} pd_proxy_create_pure_V2_t;
+
+#define PD_CALL_PROXY_KILL_PURE_V2 5
+typedef struct {
+    pd_AccountIdLookupOfT_t spawner;
+    pd_ProxyType_t proxy_type;
+    pd_u16_t index;
+    pd_Compactu32_t height;
+    pd_Compactu32_t ext_index;
+} pd_proxy_kill_pure_V2_t;
 
 #define PD_CALL_BALANCES_SET_BALANCE_DEPRECATED_V2 1
 typedef struct {
@@ -690,8 +654,6 @@ typedef union {
     pd_dappstaking_cleanup_expired_entries_V2_t dappstaking_cleanup_expired_entries_V2;
     pd_evm_withdraw_V2_t evm_withdraw_V2;
     pd_dappstakingmigration_migrate_V2_t dappstakingmigration_migrate_V2;
-    pd_dappsstaking_claim_staker_V2_t dappsstaking_claim_staker_V2;
-    pd_dappsstaking_claim_dapp_V2_t dappsstaking_claim_dapp_V2;
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
 #endif
@@ -700,6 +662,11 @@ typedef union {
     pd_multisig_as_multi_V2_t multisig_as_multi_V2;
     pd_multisig_approve_as_multi_V2_t multisig_approve_as_multi_V2;
     pd_multisig_cancel_as_multi_V2_t multisig_cancel_as_multi_V2;
+    pd_proxy_proxy_V2_t proxy_proxy_V2;
+    pd_proxy_add_proxy_V2_t proxy_add_proxy_V2;
+    pd_proxy_remove_proxy_V2_t proxy_remove_proxy_V2;
+    pd_proxy_create_pure_V2_t proxy_create_pure_V2;
+    pd_proxy_kill_pure_V2_t proxy_kill_pure_V2;
     pd_balances_set_balance_deprecated_V2_t balances_set_balance_deprecated_V2;
 #endif
 } pd_MethodNested_V2_t;

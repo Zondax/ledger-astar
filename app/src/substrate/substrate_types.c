@@ -167,6 +167,16 @@ parser_error_t _readH160(parser_context_t* c, pd_H160_t* v) {
     GEN_DEF_READARRAY(20)
 }
 
+parser_error_t _readProxyType(parser_context_t* c, pd_ProxyType_t* v)
+{
+    CHECK_INPUT()
+    CHECK_ERROR(_readUInt8(c, &v->value))
+    if (v->value > 7) {
+        return parser_value_out_of_range;
+    }
+    return parser_ok;
+}
+
 parser_error_t _readTimepoint(parser_context_t* c, pd_Timepoint_t* v)
 {
     CHECK_ERROR(_readBlockNumber(c, &v->height))
@@ -206,15 +216,6 @@ parser_error_t _readAccountIdLookupOfT(parser_context_t* c, pd_AccountIdLookupOf
         return parser_unexpected_value;
     }
 
-    return parser_ok;
-}
-
-parser_error_t _readContractStakeInfo(parser_context_t* c, pd_ContractStakeInfo_t* v)
-{
-    CHECK_INPUT()
-    CHECK_ERROR(_readCompactBalance(c, &v->total))
-    CHECK_ERROR(_readCompactu32(c, &v->numberOfStakers))
-    CHECK_ERROR(_readbool(c, &v->contractRewardClaimed))
     return parser_ok;
 }
 
@@ -270,18 +271,8 @@ parser_error_t _readVestingInfo(parser_context_t* c, pd_VestingInfo_t* v)
     return parser_ok;
 }
 
-parser_error_t _readDappsRewardDestination(parser_context_t* c, pd_DappsRewardDestination_t* v)
-{
-    CHECK_INPUT()
-    CHECK_ERROR(_readUInt8(c, &v->value))
-    return parser_ok;
-}
-
-parser_error_t _readEraIndex(parser_context_t* c, pd_EraIndex_t* v)
-{
-    CHECK_INPUT()
-    CHECK_ERROR(_readUInt32(c, &v->value))
-    return parser_ok;
+parser_error_t _readCallHashOf(parser_context_t* c, pd_CallHashOf_t* v) {
+    GEN_DEF_READARRAY(32)
 }
 
 parser_error_t _readH256(parser_context_t* c, pd_H256_t* v) {
@@ -326,6 +317,16 @@ parser_error_t _readOptionAccountId(parser_context_t* c, pd_OptionAccountId_t* v
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readAccountId(c, &v->contained))
+    }
+    return parser_ok;
+}
+
+parser_error_t _readOptionProxyType(parser_context_t* c, pd_OptionProxyType_t* v)
+{
+    CHECK_INPUT()
+    CHECK_ERROR(_readUInt8(c, &v->some))
+    if (v->some > 0) {
+        CHECK_ERROR(_readProxyType(c, &v->contained))
     }
     return parser_ok;
 }
@@ -628,6 +629,46 @@ parser_error_t _toStringH160(
     GEN_DEF_TOSTRING_ARRAY(20);
 }
 
+parser_error_t _toStringProxyType(
+    const pd_ProxyType_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    CLEAN_AND_CHECK()
+    *pageCount = 1;
+    switch (v->value) {
+    case 0:
+        snprintf(outValue, outValueLen, "Any");
+        break;
+    case 1:
+        snprintf(outValue, outValueLen, "NonTransfer");
+        break;
+    case 2:
+        snprintf(outValue, outValueLen, "Balances");
+        break;
+    case 3:
+        snprintf(outValue, outValueLen, "Assets");
+        break;
+    case 4:
+        snprintf(outValue, outValueLen, "IdentityJudgement");
+        break;
+    case 5:
+        snprintf(outValue, outValueLen, "CancelProxy");
+        break;
+    case 6:
+        snprintf(outValue, outValueLen, "DappStaking");
+        break;
+    case 7:
+        snprintf(outValue, outValueLen, "StakerRewardClaim");
+        break;
+    default:
+        return parser_unexpected_value;
+    }
+    return parser_ok;
+}
+
 parser_error_t _toStringTimepoint(
     const pd_Timepoint_t* v,
     char* outValue,
@@ -733,50 +774,6 @@ parser_error_t _toStringAccountIdLookupOfT(
     }
 
     return parser_ok;
-}
-
-parser_error_t _toStringContractStakeInfo(
-    const pd_ContractStakeInfo_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount)
-{
-    CLEAN_AND_CHECK()
-
-    // First measure number of pages
-    uint8_t pages[3] = { 0 };
-    CHECK_ERROR(_toStringCompactBalance(&v->total, outValue, outValueLen, 0, &pages[0]))
-    CHECK_ERROR(_toStringCompactu32(&v->numberOfStakers, outValue, outValueLen, 0, &pages[1]))
-    CHECK_ERROR(_toStringbool(&v->contractRewardClaimed, outValue, outValueLen, 0, &pages[2]))
-
-    *pageCount = 0;
-    for (uint8_t i = 0; i < (uint8_t)sizeof(pages); i++) {
-        *pageCount += pages[i];
-    }
-
-    if (pageIdx >= *pageCount) {
-        return parser_display_idx_out_of_range;
-    }
-
-    if (pageIdx < pages[0]) {
-        CHECK_ERROR(_toStringCompactBalance(&v->total, outValue, outValueLen, pageIdx, &pages[0]))
-        return parser_ok;
-    }
-    pageIdx -= pages[0];
-
-    if (pageIdx < pages[1]) {
-        CHECK_ERROR(_toStringCompactu32(&v->numberOfStakers, outValue, outValueLen, pageIdx, &pages[1]))
-        return parser_ok;
-    }
-    pageIdx -= pages[1];
-
-    if (pageIdx < pages[2]) {
-        CHECK_ERROR(_toStringbool(&v->contractRewardClaimed, outValue, outValueLen, pageIdx, &pages[2]))
-        return parser_ok;
-    }
-
-    return parser_display_idx_out_of_range;
 }
 
 parser_error_t _toStringSmartContract(
@@ -904,37 +901,13 @@ parser_error_t _toStringVestingInfo(
     return parser_display_idx_out_of_range;
 }
 
-parser_error_t _toStringDappsRewardDestination(
-    const pd_DappsRewardDestination_t* v,
+parser_error_t _toStringCallHashOf(
+    const pd_CallHashOf_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
-    uint8_t* pageCount)
-{
-    CLEAN_AND_CHECK()
-    UNUSED(pageIdx);
-    *pageCount = 1;
-    switch (v->value) {
-    case 0:
-        snprintf(outValue, outValueLen, "FreeBalance");
-        break;
-    case 1:
-        snprintf(outValue, outValueLen, "StakeBalance");
-        break;
-    default:
-        return parser_unexpected_value;
-    }
-    return parser_ok;
-}
-
-parser_error_t _toStringEraIndex(
-    const pd_EraIndex_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount)
-{
-    return _toStringu32(&v->value, outValue, outValueLen, pageIdx, pageCount);
+    uint8_t* pageCount) {
+    GEN_DEF_TOSTRING_ARRAY(32)
 }
 
 parser_error_t _toStringH256(
@@ -1030,6 +1003,27 @@ parser_error_t _toStringOptionAccountId(
     *pageCount = 1;
     if (v->some > 0) {
         CHECK_ERROR(_toStringAccountId(
+            &v->contained,
+            outValue, outValueLen,
+            pageIdx, pageCount));
+    } else {
+        snprintf(outValue, outValueLen, "None");
+    }
+    return parser_ok;
+}
+
+parser_error_t _toStringOptionProxyType(
+    const pd_OptionProxyType_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    CLEAN_AND_CHECK()
+
+    *pageCount = 1;
+    if (v->some > 0) {
+        CHECK_ERROR(_toStringProxyType(
             &v->contained,
             outValue, outValueLen,
             pageIdx, pageCount));

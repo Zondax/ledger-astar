@@ -277,76 +277,6 @@ __Z_INLINE parser_error_t _readMethod_dappstakingmigration_migrate_V2(
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_dappsstaking_register_V2(
-    parser_context_t* c, pd_dappsstaking_register_V2_t* m)
-{
-    CHECK_ERROR(_readAccountId(c, &m->developer))
-    CHECK_ERROR(_readSmartContract(c, &m->contract_id))
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_dappsstaking_unregister_V2(
-    parser_context_t* c, pd_dappsstaking_unregister_V2_t* m)
-{
-    CHECK_ERROR(_readSmartContract(c, &m->contract_id))
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_dappsstaking_withdraw_from_unregistered_V2(
-    parser_context_t* c, pd_dappsstaking_withdraw_from_unregistered_V2_t* m)
-{
-    CHECK_ERROR(_readSmartContract(c, &m->contract_id))
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_dappsstaking_bond_and_stake_V2(
-    parser_context_t* c, pd_dappsstaking_bond_and_stake_V2_t* m)
-{
-    CHECK_ERROR(_readSmartContract(c, &m->contract_id))
-    CHECK_ERROR(_readCompactu128(c, &m->amount))
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_dappsstaking_unbond_and_unstake_V2(
-    parser_context_t* c, pd_dappsstaking_unbond_and_unstake_V2_t* m)
-{
-    CHECK_ERROR(_readSmartContract(c, &m->contract_id))
-    CHECK_ERROR(_readCompactu128(c, &m->amount))
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_dappsstaking_withdraw_unbonded_V2(
-    parser_context_t* c, pd_dappsstaking_withdraw_unbonded_V2_t* m)
-{
-    UNUSED(c);
-    UNUSED(m);
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_dappsstaking_nomination_transfer_V2(
-    parser_context_t* c, pd_dappsstaking_nomination_transfer_V2_t* m)
-{
-    CHECK_ERROR(_readSmartContract(c, &m->origin_contract_id))
-    CHECK_ERROR(_readCompactu128(c, &m->amount))
-    CHECK_ERROR(_readSmartContract(c, &m->target_contract_id))
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_dappsstaking_claim_staker_V2(
-    parser_context_t* c, pd_dappsstaking_claim_staker_V2_t* m)
-{
-    CHECK_ERROR(_readSmartContract(c, &m->contract_id))
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_dappsstaking_claim_dapp_V2(
-    parser_context_t* c, pd_dappsstaking_claim_dapp_V2_t* m)
-{
-    CHECK_ERROR(_readSmartContract(c, &m->contract_id))
-    CHECK_ERROR(_readCompactu32(c, &m->era))
-    return parser_ok;
-}
-
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
 #endif
@@ -402,6 +332,95 @@ __Z_INLINE parser_error_t _readMethod_multisig_cancel_as_multi_V2(
     CHECK_ERROR(_readVecAccountId(c, &m->other_signatories))
     CHECK_ERROR(_readTimepoint(c, &m->timepoint))
     CHECK_ERROR(_readH256(c, &m->call_hash))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_proxy_proxy_V2(
+    parser_context_t* c, pd_proxy_proxy_V2_t* m)
+{
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->real))
+    CHECK_ERROR(_readOptionProxyType(c, &m->force_proxy_type))
+    CHECK_ERROR(_readCall(c, &m->call))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_proxy_add_proxy_V2(
+    parser_context_t* c, pd_proxy_add_proxy_V2_t* m)
+{
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
+    CHECK_ERROR(_readProxyType(c, &m->proxy_type))
+    CHECK_ERROR(_readBlockNumber(c, &m->delay))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_proxy_remove_proxy_V2(
+    parser_context_t* c, pd_proxy_remove_proxy_V2_t* m)
+{
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
+    CHECK_ERROR(_readProxyType(c, &m->proxy_type))
+    CHECK_ERROR(_readBlockNumber(c, &m->delay))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_proxy_remove_proxies_V2(
+    parser_context_t* c, pd_proxy_remove_proxies_V2_t* m)
+{
+    UNUSED(c);
+    UNUSED(m);
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_proxy_create_pure_V2(
+    parser_context_t* c, pd_proxy_create_pure_V2_t* m)
+{
+    CHECK_ERROR(_readProxyType(c, &m->proxy_type))
+    CHECK_ERROR(_readBlockNumber(c, &m->delay))
+    CHECK_ERROR(_readu16(c, &m->index))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_proxy_kill_pure_V2(
+    parser_context_t* c, pd_proxy_kill_pure_V2_t* m)
+{
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->spawner))
+    CHECK_ERROR(_readProxyType(c, &m->proxy_type))
+    CHECK_ERROR(_readu16(c, &m->index))
+    CHECK_ERROR(_readCompactu32(c, &m->height))
+    CHECK_ERROR(_readCompactu32(c, &m->ext_index))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_proxy_announce_V2(
+    parser_context_t* c, pd_proxy_announce_V2_t* m)
+{
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->real))
+    CHECK_ERROR(_readCallHashOf(c, &m->call_hash))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_proxy_remove_announcement_V2(
+    parser_context_t* c, pd_proxy_remove_announcement_V2_t* m)
+{
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->real))
+    CHECK_ERROR(_readCallHashOf(c, &m->call_hash))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_proxy_reject_announcement_V2(
+    parser_context_t* c, pd_proxy_reject_announcement_V2_t* m)
+{
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
+    CHECK_ERROR(_readCallHashOf(c, &m->call_hash))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_proxy_proxy_announced_V2(
+    parser_context_t* c, pd_proxy_proxy_announced_V2_t* m)
+{
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->real))
+    CHECK_ERROR(_readOptionProxyType(c, &m->force_proxy_type))
+    CHECK_ERROR(_readCall(c, &m->call))
     return parser_ok;
 }
 
@@ -710,69 +729,6 @@ __Z_INLINE parser_error_t _readMethod_assets_block_V2(
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_dappsstaking_force_new_era_V2(
-    parser_context_t* c, pd_dappsstaking_force_new_era_V2_t* m)
-{
-    UNUSED(c);
-    UNUSED(m);
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_dappsstaking_maintenance_mode_V2(
-    parser_context_t* c, pd_dappsstaking_maintenance_mode_V2_t* m)
-{
-    CHECK_ERROR(_readbool(c, &m->enable_maintenance))
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_dappsstaking_set_reward_destination_V2(
-    parser_context_t* c, pd_dappsstaking_set_reward_destination_V2_t* m)
-{
-    CHECK_ERROR(_readDappsRewardDestination(c, &m->reward_destination))
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_dappsstaking_set_contract_stake_info_V2(
-    parser_context_t* c, pd_dappsstaking_set_contract_stake_info_V2_t* m)
-{
-    CHECK_ERROR(_readSmartContract(c, &m->contract))
-    CHECK_ERROR(_readEraIndex(c, &m->era))
-    CHECK_ERROR(_readContractStakeInfo(c, &m->contract_stake_info))
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_dappsstaking_burn_stale_reward_V2(
-    parser_context_t* c, pd_dappsstaking_burn_stale_reward_V2_t* m)
-{
-    CHECK_ERROR(_readSmartContract(c, &m->contract_id))
-    CHECK_ERROR(_readCompactu32(c, &m->era))
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_dappsstaking_claim_staker_for_V2(
-    parser_context_t* c, pd_dappsstaking_claim_staker_for_V2_t* m)
-{
-    CHECK_ERROR(_readAccountId(c, &m->staker))
-    CHECK_ERROR(_readSmartContract(c, &m->contract_id))
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_dappsstaking_set_reward_destination_for_V2(
-    parser_context_t* c, pd_dappsstaking_set_reward_destination_for_V2_t* m)
-{
-    CHECK_ERROR(_readAccountId(c, &m->staker))
-    CHECK_ERROR(_readDappsRewardDestination(c, &m->reward_destination))
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_dappsstaking_decommission_V2(
-    parser_context_t* c, pd_dappsstaking_decommission_V2_t* m)
-{
-    UNUSED(c);
-    UNUSED(m);
-    return parser_ok;
-}
-
 #endif
 
 parser_error_t _readMethod_V2(
@@ -884,33 +840,6 @@ parser_error_t _readMethod_V2(
     case 65024: /* module 254 call 0 */
         CHECK_ERROR(_readMethod_dappstakingmigration_migrate_V2(c, &method->nested.dappstakingmigration_migrate_V2))
         break;
-    case 65280: /* module 255 call 0 */
-        CHECK_ERROR(_readMethod_dappsstaking_register_V2(c, &method->basic.dappsstaking_register_V2))
-        break;
-    case 65281: /* module 255 call 1 */
-        CHECK_ERROR(_readMethod_dappsstaking_unregister_V2(c, &method->basic.dappsstaking_unregister_V2))
-        break;
-    case 65282: /* module 255 call 2 */
-        CHECK_ERROR(_readMethod_dappsstaking_withdraw_from_unregistered_V2(c, &method->basic.dappsstaking_withdraw_from_unregistered_V2))
-        break;
-    case 65283: /* module 255 call 3 */
-        CHECK_ERROR(_readMethod_dappsstaking_bond_and_stake_V2(c, &method->basic.dappsstaking_bond_and_stake_V2))
-        break;
-    case 65284: /* module 255 call 4 */
-        CHECK_ERROR(_readMethod_dappsstaking_unbond_and_unstake_V2(c, &method->basic.dappsstaking_unbond_and_unstake_V2))
-        break;
-    case 65285: /* module 255 call 5 */
-        CHECK_ERROR(_readMethod_dappsstaking_withdraw_unbonded_V2(c, &method->basic.dappsstaking_withdraw_unbonded_V2))
-        break;
-    case 65286: /* module 255 call 6 */
-        CHECK_ERROR(_readMethod_dappsstaking_nomination_transfer_V2(c, &method->basic.dappsstaking_nomination_transfer_V2))
-        break;
-    case 65287: /* module 255 call 7 */
-        CHECK_ERROR(_readMethod_dappsstaking_claim_staker_V2(c, &method->nested.dappsstaking_claim_staker_V2))
-        break;
-    case 65288: /* module 255 call 8 */
-        CHECK_ERROR(_readMethod_dappsstaking_claim_dapp_V2(c, &method->nested.dappsstaking_claim_dapp_V2))
-        break;
 
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
@@ -932,6 +861,36 @@ parser_error_t _readMethod_V2(
         break;
     case 3587: /* module 14 call 3 */
         CHECK_ERROR(_readMethod_multisig_cancel_as_multi_V2(c, &method->nested.multisig_cancel_as_multi_V2))
+        break;
+    case 3840: /* module 15 call 0 */
+        CHECK_ERROR(_readMethod_proxy_proxy_V2(c, &method->nested.proxy_proxy_V2))
+        break;
+    case 3841: /* module 15 call 1 */
+        CHECK_ERROR(_readMethod_proxy_add_proxy_V2(c, &method->nested.proxy_add_proxy_V2))
+        break;
+    case 3842: /* module 15 call 2 */
+        CHECK_ERROR(_readMethod_proxy_remove_proxy_V2(c, &method->nested.proxy_remove_proxy_V2))
+        break;
+    case 3843: /* module 15 call 3 */
+        CHECK_ERROR(_readMethod_proxy_remove_proxies_V2(c, &method->basic.proxy_remove_proxies_V2))
+        break;
+    case 3844: /* module 15 call 4 */
+        CHECK_ERROR(_readMethod_proxy_create_pure_V2(c, &method->nested.proxy_create_pure_V2))
+        break;
+    case 3845: /* module 15 call 5 */
+        CHECK_ERROR(_readMethod_proxy_kill_pure_V2(c, &method->nested.proxy_kill_pure_V2))
+        break;
+    case 3846: /* module 15 call 6 */
+        CHECK_ERROR(_readMethod_proxy_announce_V2(c, &method->basic.proxy_announce_V2))
+        break;
+    case 3847: /* module 15 call 7 */
+        CHECK_ERROR(_readMethod_proxy_remove_announcement_V2(c, &method->basic.proxy_remove_announcement_V2))
+        break;
+    case 3848: /* module 15 call 8 */
+        CHECK_ERROR(_readMethod_proxy_reject_announcement_V2(c, &method->basic.proxy_reject_announcement_V2))
+        break;
+    case 3849: /* module 15 call 9 */
+        CHECK_ERROR(_readMethod_proxy_proxy_announced_V2(c, &method->basic.proxy_proxy_announced_V2))
         break;
     case 7937: /* module 31 call 1 */
         CHECK_ERROR(_readMethod_balances_set_balance_deprecated_V2(c, &method->nested.balances_set_balance_deprecated_V2))
@@ -1041,30 +1000,6 @@ parser_error_t _readMethod_V2(
     case 9247: /* module 36 call 31 */
         CHECK_ERROR(_readMethod_assets_block_V2(c, &method->basic.assets_block_V2))
         break;
-    case 65289: /* module 255 call 9 */
-        CHECK_ERROR(_readMethod_dappsstaking_force_new_era_V2(c, &method->basic.dappsstaking_force_new_era_V2))
-        break;
-    case 65290: /* module 255 call 10 */
-        CHECK_ERROR(_readMethod_dappsstaking_maintenance_mode_V2(c, &method->basic.dappsstaking_maintenance_mode_V2))
-        break;
-    case 65291: /* module 255 call 11 */
-        CHECK_ERROR(_readMethod_dappsstaking_set_reward_destination_V2(c, &method->basic.dappsstaking_set_reward_destination_V2))
-        break;
-    case 65292: /* module 255 call 12 */
-        CHECK_ERROR(_readMethod_dappsstaking_set_contract_stake_info_V2(c, &method->basic.dappsstaking_set_contract_stake_info_V2))
-        break;
-    case 65293: /* module 255 call 13 */
-        CHECK_ERROR(_readMethod_dappsstaking_burn_stale_reward_V2(c, &method->basic.dappsstaking_burn_stale_reward_V2))
-        break;
-    case 65294: /* module 255 call 14 */
-        CHECK_ERROR(_readMethod_dappsstaking_claim_staker_for_V2(c, &method->basic.dappsstaking_claim_staker_for_V2))
-        break;
-    case 65295: /* module 255 call 15 */
-        CHECK_ERROR(_readMethod_dappsstaking_set_reward_destination_for_V2(c, &method->basic.dappsstaking_set_reward_destination_for_V2))
-        break;
-    case 65296: /* module 255 call 16 */
-        CHECK_ERROR(_readMethod_dappsstaking_decommission_V2(c, &method->basic.dappsstaking_decommission_V2))
-        break;
 #endif
     default:
         return parser_unexpected_callIndex;
@@ -1093,8 +1028,6 @@ const char* _getMethod_ModuleName_V2(uint8_t moduleIdx)
         return STR_MO_EVM;
     case 254:
         return STR_MO_DAPPSTAKINGMIGRATION;
-    case 255:
-        return STR_MO_DAPPSSTAKING;
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
 #endif
@@ -1102,6 +1035,8 @@ const char* _getMethod_ModuleName_V2(uint8_t moduleIdx)
         return STR_MO_SYSTEM;
     case 14:
         return STR_MO_MULTISIG;
+    case 15:
+        return STR_MO_PROXY;
     case 36:
         return STR_MO_ASSETS;
 #endif
@@ -1183,24 +1118,6 @@ const char* _getMethod_Name_V2(uint8_t moduleIdx, uint8_t callIdx)
         return STR_ME_WITHDRAW;
     case 65024: /* module 254 call 0 */
         return STR_ME_MIGRATE;
-    case 65280: /* module 255 call 0 */
-        return STR_ME_REGISTER;
-    case 65281: /* module 255 call 1 */
-        return STR_ME_UNREGISTER;
-    case 65282: /* module 255 call 2 */
-        return STR_ME_WITHDRAW_FROM_UNREGISTERED;
-    case 65283: /* module 255 call 3 */
-        return STR_ME_BOND_AND_STAKE;
-    case 65284: /* module 255 call 4 */
-        return STR_ME_UNBOND_AND_UNSTAKE;
-    case 65285: /* module 255 call 5 */
-        return STR_ME_WITHDRAW_UNBONDED;
-    case 65286: /* module 255 call 6 */
-        return STR_ME_NOMINATION_TRANSFER;
-    case 65287: /* module 255 call 7 */
-        return STR_ME_CLAIM_STAKER;
-    case 65288: /* module 255 call 8 */
-        return STR_ME_CLAIM_DAPP;
     default:
         return _getMethod_Name_V2_ParserFull(callPrivIdx);
     }
@@ -1226,6 +1143,26 @@ const char* _getMethod_Name_V2_ParserFull(uint16_t callPrivIdx)
         return STR_ME_APPROVE_AS_MULTI;
     case 3587: /* module 14 call 3 */
         return STR_ME_CANCEL_AS_MULTI;
+    case 3840: /* module 15 call 0 */
+        return STR_ME_PROXY;
+    case 3841: /* module 15 call 1 */
+        return STR_ME_ADD_PROXY;
+    case 3842: /* module 15 call 2 */
+        return STR_ME_REMOVE_PROXY;
+    case 3843: /* module 15 call 3 */
+        return STR_ME_REMOVE_PROXIES;
+    case 3844: /* module 15 call 4 */
+        return STR_ME_CREATE_PURE;
+    case 3845: /* module 15 call 5 */
+        return STR_ME_KILL_PURE;
+    case 3846: /* module 15 call 6 */
+        return STR_ME_ANNOUNCE;
+    case 3847: /* module 15 call 7 */
+        return STR_ME_REMOVE_ANNOUNCEMENT;
+    case 3848: /* module 15 call 8 */
+        return STR_ME_REJECT_ANNOUNCEMENT;
+    case 3849: /* module 15 call 9 */
+        return STR_ME_PROXY_ANNOUNCED;
     case 7937: /* module 31 call 1 */
         return STR_ME_SET_BALANCE_DEPRECATED;
     case 7941: /* module 31 call 5 */
@@ -1298,22 +1235,6 @@ const char* _getMethod_Name_V2_ParserFull(uint16_t callPrivIdx)
         return STR_ME_REFUND_OTHER;
     case 9247: /* module 36 call 31 */
         return STR_ME_BLOCK;
-    case 65289: /* module 255 call 9 */
-        return STR_ME_FORCE_NEW_ERA;
-    case 65290: /* module 255 call 10 */
-        return STR_ME_MAINTENANCE_MODE;
-    case 65291: /* module 255 call 11 */
-        return STR_ME_SET_REWARD_DESTINATION;
-    case 65292: /* module 255 call 12 */
-        return STR_ME_SET_CONTRACT_STAKE_INFO;
-    case 65293: /* module 255 call 13 */
-        return STR_ME_BURN_STALE_REWARD;
-    case 65294: /* module 255 call 14 */
-        return STR_ME_CLAIM_STAKER_FOR;
-    case 65295: /* module 255 call 15 */
-        return STR_ME_SET_REWARD_DESTINATION_FOR;
-    case 65296: /* module 255 call 16 */
-        return STR_ME_DECOMMISSION;
 #endif
     default:
         return NULL;
@@ -1393,24 +1314,6 @@ uint8_t _getMethod_NumItems_V2(uint8_t moduleIdx, uint8_t callIdx)
         return 2;
     case 65024: /* module 254 call 0 */
         return 1;
-    case 65280: /* module 255 call 0 */
-        return 2;
-    case 65281: /* module 255 call 1 */
-        return 1;
-    case 65282: /* module 255 call 2 */
-        return 1;
-    case 65283: /* module 255 call 3 */
-        return 2;
-    case 65284: /* module 255 call 4 */
-        return 2;
-    case 65285: /* module 255 call 5 */
-        return 0;
-    case 65286: /* module 255 call 6 */
-        return 3;
-    case 65287: /* module 255 call 7 */
-        return 1;
-    case 65288: /* module 255 call 8 */
-        return 2;
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
 #endif
@@ -1425,6 +1328,26 @@ uint8_t _getMethod_NumItems_V2(uint8_t moduleIdx, uint8_t callIdx)
     case 3586: /* module 14 call 2 */
         return 5;
     case 3587: /* module 14 call 3 */
+        return 4;
+    case 3840: /* module 15 call 0 */
+        return 3;
+    case 3841: /* module 15 call 1 */
+        return 3;
+    case 3842: /* module 15 call 2 */
+        return 3;
+    case 3843: /* module 15 call 3 */
+        return 0;
+    case 3844: /* module 15 call 4 */
+        return 3;
+    case 3845: /* module 15 call 5 */
+        return 5;
+    case 3846: /* module 15 call 6 */
+        return 2;
+    case 3847: /* module 15 call 7 */
+        return 2;
+    case 3848: /* module 15 call 8 */
+        return 2;
+    case 3849: /* module 15 call 9 */
         return 4;
     case 7937: /* module 31 call 1 */
         return 3;
@@ -1498,22 +1421,6 @@ uint8_t _getMethod_NumItems_V2(uint8_t moduleIdx, uint8_t callIdx)
         return 2;
     case 9247: /* module 36 call 31 */
         return 2;
-    case 65289: /* module 255 call 9 */
-        return 0;
-    case 65290: /* module 255 call 10 */
-        return 1;
-    case 65291: /* module 255 call 11 */
-        return 1;
-    case 65292: /* module 255 call 12 */
-        return 3;
-    case 65293: /* module 255 call 13 */
-        return 2;
-    case 65294: /* module 255 call 14 */
-        return 2;
-    case 65295: /* module 255 call 15 */
-        return 2;
-    case 65296: /* module 255 call 16 */
-        return 0;
 #endif
     default:
         return 0;
@@ -1782,79 +1689,6 @@ const char* _getMethod_ItemName_V2(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
         default:
             return NULL;
         }
-    case 65280: /* module 255 call 0 */
-        switch (itemIdx) {
-        case 0:
-            return STR_IT_developer;
-        case 1:
-            return STR_IT_contract_id;
-        default:
-            return NULL;
-        }
-    case 65281: /* module 255 call 1 */
-        switch (itemIdx) {
-        case 0:
-            return STR_IT_contract_id;
-        default:
-            return NULL;
-        }
-    case 65282: /* module 255 call 2 */
-        switch (itemIdx) {
-        case 0:
-            return STR_IT_contract_id;
-        default:
-            return NULL;
-        }
-    case 65283: /* module 255 call 3 */
-        switch (itemIdx) {
-        case 0:
-            return STR_IT_contract_id;
-        case 1:
-            return STR_IT_amount;
-        default:
-            return NULL;
-        }
-    case 65284: /* module 255 call 4 */
-        switch (itemIdx) {
-        case 0:
-            return STR_IT_contract_id;
-        case 1:
-            return STR_IT_amount;
-        default:
-            return NULL;
-        }
-    case 65285: /* module 255 call 5 */
-        switch (itemIdx) {
-        default:
-            return NULL;
-        }
-    case 65286: /* module 255 call 6 */
-        switch (itemIdx) {
-        case 0:
-            return STR_IT_origin_contract_id;
-        case 1:
-            return STR_IT_amount;
-        case 2:
-            return STR_IT_target_contract_id;
-        default:
-            return NULL;
-        }
-    case 65287: /* module 255 call 7 */
-        switch (itemIdx) {
-        case 0:
-            return STR_IT_contract_id;
-        default:
-            return NULL;
-        }
-    case 65288: /* module 255 call 8 */
-        switch (itemIdx) {
-        case 0:
-            return STR_IT_contract_id;
-        case 1:
-            return STR_IT_era;
-        default:
-            return NULL;
-        }
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
 #endif
@@ -1923,6 +1757,110 @@ const char* _getMethod_ItemName_V2(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
             return STR_IT_timepoint;
         case 3:
             return STR_IT_call_hash;
+        default:
+            return NULL;
+        }
+    case 3840: /* module 15 call 0 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_real;
+        case 1:
+            return STR_IT_force_proxy_type;
+        case 2:
+            return STR_IT_call;
+        default:
+            return NULL;
+        }
+    case 3841: /* module 15 call 1 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_delegate;
+        case 1:
+            return STR_IT_proxy_type;
+        case 2:
+            return STR_IT_delay;
+        default:
+            return NULL;
+        }
+    case 3842: /* module 15 call 2 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_delegate;
+        case 1:
+            return STR_IT_proxy_type;
+        case 2:
+            return STR_IT_delay;
+        default:
+            return NULL;
+        }
+    case 3843: /* module 15 call 3 */
+        switch (itemIdx) {
+        default:
+            return NULL;
+        }
+    case 3844: /* module 15 call 4 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_proxy_type;
+        case 1:
+            return STR_IT_delay;
+        case 2:
+            return STR_IT_index;
+        default:
+            return NULL;
+        }
+    case 3845: /* module 15 call 5 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_spawner;
+        case 1:
+            return STR_IT_proxy_type;
+        case 2:
+            return STR_IT_index;
+        case 3:
+            return STR_IT_height;
+        case 4:
+            return STR_IT_ext_index;
+        default:
+            return NULL;
+        }
+    case 3846: /* module 15 call 6 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_real;
+        case 1:
+            return STR_IT_call_hash;
+        default:
+            return NULL;
+        }
+    case 3847: /* module 15 call 7 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_real;
+        case 1:
+            return STR_IT_call_hash;
+        default:
+            return NULL;
+        }
+    case 3848: /* module 15 call 8 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_delegate;
+        case 1:
+            return STR_IT_call_hash;
+        default:
+            return NULL;
+        }
+    case 3849: /* module 15 call 9 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_delegate;
+        case 1:
+            return STR_IT_real;
+        case 2:
+            return STR_IT_force_proxy_type;
+        case 3:
+            return STR_IT_call;
         default:
             return NULL;
         }
@@ -2281,68 +2219,6 @@ const char* _getMethod_ItemName_V2(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
             return STR_IT_id;
         case 1:
             return STR_IT_who;
-        default:
-            return NULL;
-        }
-    case 65289: /* module 255 call 9 */
-        switch (itemIdx) {
-        default:
-            return NULL;
-        }
-    case 65290: /* module 255 call 10 */
-        switch (itemIdx) {
-        case 0:
-            return STR_IT_enable_maintenance;
-        default:
-            return NULL;
-        }
-    case 65291: /* module 255 call 11 */
-        switch (itemIdx) {
-        case 0:
-            return STR_IT_reward_destination;
-        default:
-            return NULL;
-        }
-    case 65292: /* module 255 call 12 */
-        switch (itemIdx) {
-        case 0:
-            return STR_IT_contract;
-        case 1:
-            return STR_IT_era;
-        case 2:
-            return STR_IT_contract_stake_info;
-        default:
-            return NULL;
-        }
-    case 65293: /* module 255 call 13 */
-        switch (itemIdx) {
-        case 0:
-            return STR_IT_contract_id;
-        case 1:
-            return STR_IT_era;
-        default:
-            return NULL;
-        }
-    case 65294: /* module 255 call 14 */
-        switch (itemIdx) {
-        case 0:
-            return STR_IT_staker;
-        case 1:
-            return STR_IT_contract_id;
-        default:
-            return NULL;
-        }
-    case 65295: /* module 255 call 15 */
-        switch (itemIdx) {
-        case 0:
-            return STR_IT_staker;
-        case 1:
-            return STR_IT_reward_destination;
-        default:
-            return NULL;
-        }
-    case 65296: /* module 255 call 16 */
-        switch (itemIdx) {
         default:
             return NULL;
         }
@@ -2753,121 +2629,6 @@ parser_error_t _getMethod_ItemValue_V2(
         default:
             return parser_no_data;
         }
-    case 65280: /* module 255 call 0 */
-        switch (itemIdx) {
-        case 0: /* dappsstaking_register_V2 - developer */;
-            return _toStringAccountId(
-                &m->basic.dappsstaking_register_V2.developer,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        case 1: /* dappsstaking_register_V2 - contract_id */;
-            return _toStringSmartContract(
-                &m->basic.dappsstaking_register_V2.contract_id,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        default:
-            return parser_no_data;
-        }
-    case 65281: /* module 255 call 1 */
-        switch (itemIdx) {
-        case 0: /* dappsstaking_unregister_V2 - contract_id */;
-            return _toStringSmartContract(
-                &m->basic.dappsstaking_unregister_V2.contract_id,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        default:
-            return parser_no_data;
-        }
-    case 65282: /* module 255 call 2 */
-        switch (itemIdx) {
-        case 0: /* dappsstaking_withdraw_from_unregistered_V2 - contract_id */;
-            return _toStringSmartContract(
-                &m->basic.dappsstaking_withdraw_from_unregistered_V2.contract_id,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        default:
-            return parser_no_data;
-        }
-    case 65283: /* module 255 call 3 */
-        switch (itemIdx) {
-        case 0: /* dappsstaking_bond_and_stake_V2 - contract_id */;
-            return _toStringSmartContract(
-                &m->basic.dappsstaking_bond_and_stake_V2.contract_id,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        case 1: /* dappsstaking_bond_and_stake_V2 - amount */;
-            return _toStringCompactu128(
-                &m->basic.dappsstaking_bond_and_stake_V2.amount,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        default:
-            return parser_no_data;
-        }
-    case 65284: /* module 255 call 4 */
-        switch (itemIdx) {
-        case 0: /* dappsstaking_unbond_and_unstake_V2 - contract_id */;
-            return _toStringSmartContract(
-                &m->basic.dappsstaking_unbond_and_unstake_V2.contract_id,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        case 1: /* dappsstaking_unbond_and_unstake_V2 - amount */;
-            return _toStringCompactu128(
-                &m->basic.dappsstaking_unbond_and_unstake_V2.amount,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        default:
-            return parser_no_data;
-        }
-    case 65285: /* module 255 call 5 */
-        switch (itemIdx) {
-        default:
-            return parser_no_data;
-        }
-    case 65286: /* module 255 call 6 */
-        switch (itemIdx) {
-        case 0: /* dappsstaking_nomination_transfer_V2 - origin_contract_id */;
-            return _toStringSmartContract(
-                &m->basic.dappsstaking_nomination_transfer_V2.origin_contract_id,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        case 1: /* dappsstaking_nomination_transfer_V2 - amount */;
-            return _toStringCompactu128(
-                &m->basic.dappsstaking_nomination_transfer_V2.amount,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        case 2: /* dappsstaking_nomination_transfer_V2 - target_contract_id */;
-            return _toStringSmartContract(
-                &m->basic.dappsstaking_nomination_transfer_V2.target_contract_id,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        default:
-            return parser_no_data;
-        }
-    case 65287: /* module 255 call 7 */
-        switch (itemIdx) {
-        case 0: /* dappsstaking_claim_staker_V2 - contract_id */;
-            return _toStringSmartContract(
-                &m->nested.dappsstaking_claim_staker_V2.contract_id,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        default:
-            return parser_no_data;
-        }
-    case 65288: /* module 255 call 8 */
-        switch (itemIdx) {
-        case 0: /* dappsstaking_claim_dapp_V2 - contract_id */;
-            return _toStringSmartContract(
-                &m->nested.dappsstaking_claim_dapp_V2.contract_id,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        case 1: /* dappsstaking_claim_dapp_V2 - era */;
-            return _toStringCompactu32(
-                &m->nested.dappsstaking_claim_dapp_V2.era,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        default:
-            return parser_no_data;
-        }
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
 #endif
@@ -2991,6 +2752,191 @@ parser_error_t _getMethod_ItemValue_V2(
         case 3: /* multisig_cancel_as_multi_V2 - call_hash */;
             return _toStringH256(
                 &m->nested.multisig_cancel_as_multi_V2.call_hash,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 3840: /* module 15 call 0 */
+        switch (itemIdx) {
+        case 0: /* proxy_proxy_V2 - real */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.proxy_proxy_V2.real,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* proxy_proxy_V2 - force_proxy_type */;
+            return _toStringOptionProxyType(
+                &m->nested.proxy_proxy_V2.force_proxy_type,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* proxy_proxy_V2 - call */;
+            return _toStringCall(
+                &m->nested.proxy_proxy_V2.call,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 3841: /* module 15 call 1 */
+        switch (itemIdx) {
+        case 0: /* proxy_add_proxy_V2 - delegate */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.proxy_add_proxy_V2.delegate,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* proxy_add_proxy_V2 - proxy_type */;
+            return _toStringProxyType(
+                &m->nested.proxy_add_proxy_V2.proxy_type,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* proxy_add_proxy_V2 - delay */;
+            return _toStringBlockNumber(
+                &m->nested.proxy_add_proxy_V2.delay,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 3842: /* module 15 call 2 */
+        switch (itemIdx) {
+        case 0: /* proxy_remove_proxy_V2 - delegate */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.proxy_remove_proxy_V2.delegate,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* proxy_remove_proxy_V2 - proxy_type */;
+            return _toStringProxyType(
+                &m->nested.proxy_remove_proxy_V2.proxy_type,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* proxy_remove_proxy_V2 - delay */;
+            return _toStringBlockNumber(
+                &m->nested.proxy_remove_proxy_V2.delay,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 3843: /* module 15 call 3 */
+        switch (itemIdx) {
+        default:
+            return parser_no_data;
+        }
+    case 3844: /* module 15 call 4 */
+        switch (itemIdx) {
+        case 0: /* proxy_create_pure_V2 - proxy_type */;
+            return _toStringProxyType(
+                &m->nested.proxy_create_pure_V2.proxy_type,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* proxy_create_pure_V2 - delay */;
+            return _toStringBlockNumber(
+                &m->nested.proxy_create_pure_V2.delay,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* proxy_create_pure_V2 - index */;
+            return _toStringu16(
+                &m->nested.proxy_create_pure_V2.index,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 3845: /* module 15 call 5 */
+        switch (itemIdx) {
+        case 0: /* proxy_kill_pure_V2 - spawner */;
+            return _toStringAccountIdLookupOfT(
+                &m->nested.proxy_kill_pure_V2.spawner,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* proxy_kill_pure_V2 - proxy_type */;
+            return _toStringProxyType(
+                &m->nested.proxy_kill_pure_V2.proxy_type,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* proxy_kill_pure_V2 - index */;
+            return _toStringu16(
+                &m->nested.proxy_kill_pure_V2.index,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 3: /* proxy_kill_pure_V2 - height */;
+            return _toStringCompactu32(
+                &m->nested.proxy_kill_pure_V2.height,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 4: /* proxy_kill_pure_V2 - ext_index */;
+            return _toStringCompactu32(
+                &m->nested.proxy_kill_pure_V2.ext_index,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 3846: /* module 15 call 6 */
+        switch (itemIdx) {
+        case 0: /* proxy_announce_V2 - real */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.proxy_announce_V2.real,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* proxy_announce_V2 - call_hash */;
+            return _toStringCallHashOf(
+                &m->basic.proxy_announce_V2.call_hash,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 3847: /* module 15 call 7 */
+        switch (itemIdx) {
+        case 0: /* proxy_remove_announcement_V2 - real */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.proxy_remove_announcement_V2.real,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* proxy_remove_announcement_V2 - call_hash */;
+            return _toStringCallHashOf(
+                &m->basic.proxy_remove_announcement_V2.call_hash,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 3848: /* module 15 call 8 */
+        switch (itemIdx) {
+        case 0: /* proxy_reject_announcement_V2 - delegate */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.proxy_reject_announcement_V2.delegate,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* proxy_reject_announcement_V2 - call_hash */;
+            return _toStringCallHashOf(
+                &m->basic.proxy_reject_announcement_V2.call_hash,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 3849: /* module 15 call 9 */
+        switch (itemIdx) {
+        case 0: /* proxy_proxy_announced_V2 - delegate */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.proxy_proxy_announced_V2.delegate,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* proxy_proxy_announced_V2 - real */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.proxy_proxy_announced_V2.real,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* proxy_proxy_announced_V2 - force_proxy_type */;
+            return _toStringOptionProxyType(
+                &m->basic.proxy_proxy_announced_V2.force_proxy_type,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 3: /* proxy_proxy_announced_V2 - call */;
+            return _toStringCall(
+                &m->basic.proxy_proxy_announced_V2.call,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3621,101 +3567,6 @@ parser_error_t _getMethod_ItemValue_V2(
         default:
             return parser_no_data;
         }
-    case 65289: /* module 255 call 9 */
-        switch (itemIdx) {
-        default:
-            return parser_no_data;
-        }
-    case 65290: /* module 255 call 10 */
-        switch (itemIdx) {
-        case 0: /* dappsstaking_maintenance_mode_V2 - enable_maintenance */;
-            return _toStringbool(
-                &m->basic.dappsstaking_maintenance_mode_V2.enable_maintenance,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        default:
-            return parser_no_data;
-        }
-    case 65291: /* module 255 call 11 */
-        switch (itemIdx) {
-        case 0: /* dappsstaking_set_reward_destination_V2 - reward_destination */;
-            return _toStringDappsRewardDestination(
-                &m->basic.dappsstaking_set_reward_destination_V2.reward_destination,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        default:
-            return parser_no_data;
-        }
-    case 65292: /* module 255 call 12 */
-        switch (itemIdx) {
-        case 0: /* dappsstaking_set_contract_stake_info_V2 - contract */;
-            return _toStringSmartContract(
-                &m->basic.dappsstaking_set_contract_stake_info_V2.contract,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        case 1: /* dappsstaking_set_contract_stake_info_V2 - era */;
-            return _toStringEraIndex(
-                &m->basic.dappsstaking_set_contract_stake_info_V2.era,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        case 2: /* dappsstaking_set_contract_stake_info_V2 - contract_stake_info */;
-            return _toStringContractStakeInfo(
-                &m->basic.dappsstaking_set_contract_stake_info_V2.contract_stake_info,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        default:
-            return parser_no_data;
-        }
-    case 65293: /* module 255 call 13 */
-        switch (itemIdx) {
-        case 0: /* dappsstaking_burn_stale_reward_V2 - contract_id */;
-            return _toStringSmartContract(
-                &m->basic.dappsstaking_burn_stale_reward_V2.contract_id,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        case 1: /* dappsstaking_burn_stale_reward_V2 - era */;
-            return _toStringCompactu32(
-                &m->basic.dappsstaking_burn_stale_reward_V2.era,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        default:
-            return parser_no_data;
-        }
-    case 65294: /* module 255 call 14 */
-        switch (itemIdx) {
-        case 0: /* dappsstaking_claim_staker_for_V2 - staker */;
-            return _toStringAccountId(
-                &m->basic.dappsstaking_claim_staker_for_V2.staker,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        case 1: /* dappsstaking_claim_staker_for_V2 - contract_id */;
-            return _toStringSmartContract(
-                &m->basic.dappsstaking_claim_staker_for_V2.contract_id,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        default:
-            return parser_no_data;
-        }
-    case 65295: /* module 255 call 15 */
-        switch (itemIdx) {
-        case 0: /* dappsstaking_set_reward_destination_for_V2 - staker */;
-            return _toStringAccountId(
-                &m->basic.dappsstaking_set_reward_destination_for_V2.staker,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        case 1: /* dappsstaking_set_reward_destination_for_V2 - reward_destination */;
-            return _toStringDappsRewardDestination(
-                &m->basic.dappsstaking_set_reward_destination_for_V2.reward_destination,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        default:
-            return parser_no_data;
-        }
-    case 65296: /* module 255 call 16 */
-        switch (itemIdx) {
-        default:
-            return parser_no_data;
-        }
 #endif
     default:
         return parser_ok;
@@ -3744,6 +3595,11 @@ bool _getMethod_IsNestingSupported_V2(uint8_t moduleIdx, uint8_t callIdx)
     case 2818: // Utility:Batch all
     case 2820: // Utility:Force batch
     case 2821: // Utility:With weight
+    case 3843: // Proxy:Remove proxies
+    case 3846: // Proxy:Announce
+    case 3847: // Proxy:Remove announcement
+    case 3848: // Proxy:Reject announcement
+    case 3849: // Proxy:Proxy announced
     case 7941: // Balances:Force unreserve
     case 7942: // Balances:Upgrade accounts
     case 7944: // Balances:Force set balance
@@ -3779,21 +3635,6 @@ bool _getMethod_IsNestingSupported_V2(uint8_t moduleIdx, uint8_t callIdx)
     case 9245: // Assets:Touch other
     case 9246: // Assets:Refund other
     case 9247: // Assets:Block
-    case 65280: // DappsStaking:Register
-    case 65281: // DappsStaking:Unregister
-    case 65282: // DappsStaking:Withdraw from unregistered
-    case 65283: // DappsStaking:Bond and stake
-    case 65284: // DappsStaking:Unbond and unstake
-    case 65285: // DappsStaking:Withdraw Unbonded
-    case 65286: // DappsStaking:Nomination transfer
-    case 65289: // DappsStaking:Force new era
-    case 65290: // DappsStaking:Maintenance mode
-    case 65291: // DappsStaking:Set reward destination
-    case 65292: // DappsStaking:Set contract stake info
-    case 65293: // DappsStaking:Burn stale reward
-    case 65294: // DappsStaking:Claim staker for
-    case 65295: // DappsStaking:Set reward destination for
-    case 65296: // DappsStaking:Decommission
         return false;
     default:
         return true;
