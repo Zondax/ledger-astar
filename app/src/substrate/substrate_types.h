@@ -150,6 +150,10 @@ typedef struct {
 } pd_H160_t;
 
 typedef struct {
+    uint8_t value;
+} pd_ProxyType_t;
+
+typedef struct {
     pd_BlockNumber_t height;
     uint32_t index;
 } pd_Timepoint_t;
@@ -168,12 +172,6 @@ typedef struct {
         const uint8_t* _ptr;
     };
 } pd_AccountIdLookupOfT_t;
-
-typedef struct {
-    pd_CompactBalance_t total;
-    pd_Compactu32_t numberOfStakers;
-    pd_bool_t contractRewardClaimed;
-} pd_ContractStakeInfo_t;
 
 typedef struct {
     uint8_t some;
@@ -206,15 +204,11 @@ typedef struct {
     pd_BlockNumber_t starting_block;
 } pd_VestingInfo_t;
 
+typedef struct {
+    const uint8_t* _ptr;
+} pd_CallHashOf_t;
+
 typedef compactInt_t pd_Compactu128_t;
-
-typedef struct {
-    uint8_t value;
-} pd_DappsRewardDestination_t;
-
-typedef struct {
-    uint32_t value;
-} pd_EraIndex_t;
 
 typedef struct {
     const uint8_t* _ptr;
@@ -228,6 +222,11 @@ typedef struct {
     uint8_t some;
     pd_AccountId_t contained;
 } pd_OptionAccountId_t;
+
+typedef struct {
+    uint8_t some;
+    pd_ProxyType_t contained;
+} pd_OptionProxyType_t;
 
 typedef struct {
     uint64_t _len;

@@ -28,7 +28,7 @@ Please:
 - **Do not use in production**
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
-# Astar 2.80.x
+# Astar 2.83.x
 
 ## System
 
@@ -91,18 +91,18 @@ Please:
 
 ## Proxy
 
-| Name                | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                                                                                  |
-| ------------------- | ------ | --------- | ---------------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
-| Proxy               |        |           |                  |         | `AccountIdLookupOfT`real<br/>`OptionProxyType`force_proxy_type<br/>`Call`call<br/>                                         |
-| Add proxy           |        |           |                  |         | `AccountIdLookupOfT`delegate<br/>`ProxyType`proxy_type<br/>`BlockNumber`delay<br/>                                         |
-| Remove proxy        |        |           |                  |         | `AccountIdLookupOfT`delegate<br/>`ProxyType`proxy_type<br/>`BlockNumber`delay<br/>                                         |
-| Remove proxies      |        |           |                  |         |                                                                                                                            |
-| Create pure         |        |           |                  |         | `ProxyType`proxy_type<br/>`BlockNumber`delay<br/>`u16`index<br/>                                                           |
-| Kill pure           |        |           |                  |         | `AccountIdLookupOfT`spawner<br/>`ProxyType`proxy_type<br/>`u16`index<br/>`Compactu32`height<br/>`Compactu32`ext_index<br/> |
-| Announce            |        |           |                  |         | `AccountIdLookupOfT`real<br/>`CallHashOf`call_hash<br/>                                                                    |
-| Remove announcement |        |           |                  |         | `AccountIdLookupOfT`real<br/>`CallHashOf`call_hash<br/>                                                                    |
-| Reject announcement |        |           |                  |         | `AccountIdLookupOfT`delegate<br/>`CallHashOf`call_hash<br/>                                                                |
-| Proxy announced     |        |           |                  |         | `AccountIdLookupOfT`delegate<br/>`AccountIdLookupOfT`real<br/>`OptionProxyType`force_proxy_type<br/>`Call`call<br/>        |
+| Name                | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting            | Arguments                                                                                                                  |
+| ------------------- | ------ | ------------------ | ------------------ | ------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| Proxy               |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT`real<br/>`OptionProxyType`force_proxy_type<br/>`Call`call<br/>                                         |
+| Add proxy           |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT`delegate<br/>`ProxyType`proxy_type<br/>`BlockNumber`delay<br/>                                         |
+| Remove proxy        |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT`delegate<br/>`ProxyType`proxy_type<br/>`BlockNumber`delay<br/>                                         |
+| Remove proxies      |        | :heavy_check_mark: | :heavy_check_mark: |                    |                                                                                                                            |
+| Create pure         |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `ProxyType`proxy_type<br/>`BlockNumber`delay<br/>`u16`index<br/>                                                           |
+| Kill pure           |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT`spawner<br/>`ProxyType`proxy_type<br/>`u16`index<br/>`Compactu32`height<br/>`Compactu32`ext_index<br/> |
+| Announce            |        | :heavy_check_mark: | :heavy_check_mark: |                    | `AccountIdLookupOfT`real<br/>`CallHashOf`call_hash<br/>                                                                    |
+| Remove announcement |        | :heavy_check_mark: | :heavy_check_mark: |                    | `AccountIdLookupOfT`real<br/>`CallHashOf`call_hash<br/>                                                                    |
+| Reject announcement |        | :heavy_check_mark: | :heavy_check_mark: |                    | `AccountIdLookupOfT`delegate<br/>`CallHashOf`call_hash<br/>                                                                |
+| Proxy announced     |        | :heavy_check_mark: | :heavy_check_mark: |                    | `AccountIdLookupOfT`delegate<br/>`AccountIdLookupOfT`real<br/>`OptionProxyType`force_proxy_type<br/>`Call`call<br/>        |
 
 ## ParachainSystem
 
@@ -249,7 +249,7 @@ Please:
 | Teleport assets                  |        |           |                  |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedMultiLocation`beneficiary<br/>`BoxVersionedMultiAssets`assets<br/>`u32`fee_asset_item<br/>                               |
 | Reserve transfer assets          |        |           |                  |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedMultiLocation`beneficiary<br/>`BoxVersionedMultiAssets`assets<br/>`u32`fee_asset_item<br/>                               |
 | Execute                          |        |           |                  |         | `BoxVersionedXcmTasSysConfigRuntimeCall`message<br/>`Weight`max_weight<br/>                                                                                               |
-| Force xcm version                |        |           |                  |         | `BoxMultiLocation`location<br/>`XcmVersion`xcm_version<br/>                                                                                                               |
+| Force xcm version                |        |           |                  |         | `BoxMultiLocation`location<br/>`XcmVersion`version<br/>                                                                                                                   |
 | Force default xcm version        |        |           |                  |         | `OptionXcmVersion`maybe_xcm_version<br/>                                                                                                                                  |
 | Force subscribe version notify   |        |           |                  |         | `BoxVersionedMultiLocation`location<br/>                                                                                                                                  |
 | Force unsubscribe version notify |        |           |                  |         | `BoxVersionedMultiLocation`location<br/>                                                                                                                                  |
@@ -345,25 +345,3 @@ Please:
 | Name    | Nano S             | Nano S XL          | Nano SP/X - Stax   | Nesting            | Arguments                       |
 | ------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------------------- |
 | Migrate | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `OptionWeight`weight_limit<br/> |
-
-## DappsStaking
-
-| Name                       | Nano S             | Nano S XL          | Nano SP/X - Stax   | Nesting            | Arguments                                                                                            |
-| -------------------------- | ------------------ | ------------------ | ------------------ | ------------------ | ---------------------------------------------------------------------------------------------------- |
-| Register                   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                    | `AccountId`developer<br/>`SmartContract`contract_id<br/>                                             |
-| Unregister                 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                    | `SmartContract`contract_id<br/>                                                                      |
-| Withdraw from unregistered | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                    | `SmartContract`contract_id<br/>                                                                      |
-| Bond and stake             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                    | `SmartContract`contract_id<br/>`Compactu128`amount<br/>                                              |
-| Unbond and unstake         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                    | `SmartContract`contract_id<br/>`Compactu128`amount<br/>                                              |
-| Withdraw Unbonded          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                    |                                                                                                      |
-| Nomination transfer        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                    | `SmartContract`origin_contract_id<br/>`Compactu128`amount<br/>`SmartContract`target_contract_id<br/> |
-| Claim staker               | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `SmartContract`contract_id<br/>                                                                      |
-| Claim dapp                 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `SmartContract`contract_id<br/>`Compactu32`era<br/>                                                  |
-| Force new era              |                    | :heavy_check_mark: | :heavy_check_mark: |                    |                                                                                                      |
-| Maintenance mode           |                    | :heavy_check_mark: | :heavy_check_mark: |                    | `bool`enable_maintenance<br/>                                                                        |
-| Set reward destination     |                    | :heavy_check_mark: | :heavy_check_mark: |                    | `DappsRewardDestination`reward_destination<br/>                                                      |
-| Set contract stake info    |                    | :heavy_check_mark: | :heavy_check_mark: |                    | `SmartContract`contract<br/>`EraIndex`era<br/>`ContractStakeInfo`contract_stake_info<br/>            |
-| Burn stale reward          |                    | :heavy_check_mark: | :heavy_check_mark: |                    | `SmartContract`contract_id<br/>`Compactu32`era<br/>                                                  |
-| Claim staker for           |                    | :heavy_check_mark: | :heavy_check_mark: |                    | `AccountId`staker<br/>`SmartContract`contract_id<br/>                                                |
-| Set reward destination for |                    | :heavy_check_mark: | :heavy_check_mark: |                    | `AccountId`staker<br/>`DappsRewardDestination`reward_destination<br/>                                |
-| Decommission               |                    | :heavy_check_mark: | :heavy_check_mark: |                    |                                                                                                      |
