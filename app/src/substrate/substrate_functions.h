@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2023 Zondax AG
+ *  (c) 2019 - 2024 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -41,19 +41,21 @@ parser_error_t _readBytes(parser_context_t* c, pd_Bytes_t* v);
 parser_error_t _readCall(parser_context_t* c, pd_Call_t* v);
 parser_error_t _readCompactAccountIndex(parser_context_t* c, pd_CompactAccountIndex_t* v);
 parser_error_t _readH160(parser_context_t* c, pd_H160_t* v);
+parser_error_t _readProxyType(parser_context_t* c, pd_ProxyType_t* v);
 parser_error_t _readTimepoint(parser_context_t* c, pd_Timepoint_t* v);
+parser_error_t _readWeight(parser_context_t* c, pd_Weight_t* v);
 parser_error_t _readAccountIdLookupOfT(parser_context_t* c, pd_AccountIdLookupOfT_t* v);
-parser_error_t _readContractStakeInfoBalanceOfT(parser_context_t* c, pd_ContractStakeInfoBalanceOfT_t* v);
 parser_error_t _readOptionTimepoint(parser_context_t* c, pd_OptionTimepoint_t* v);
+parser_error_t _readOptionWeight(parser_context_t* c, pd_OptionWeight_t* v);
 parser_error_t _readSmartContract(parser_context_t* c, pd_SmartContract_t* v);
 parser_error_t _readVecCall(parser_context_t* c, pd_VecCall_t* v);
 parser_error_t _readVestingInfo(parser_context_t* c, pd_VestingInfo_t* v);
-parser_error_t _readWeight(parser_context_t* c, pd_Weight_t* v);
+parser_error_t _readCallHashOf(parser_context_t* c, pd_CallHashOf_t* v);
 parser_error_t _readCompactu128(parser_context_t* c, pd_Compactu128_t* v);
-parser_error_t _readDappsRewardDestination(parser_context_t* c, pd_DappsRewardDestination_t* v);
-parser_error_t _readEraIndex(parser_context_t* c, pd_EraIndex_t* v);
 parser_error_t _readH256(parser_context_t* c, pd_H256_t* v);
 parser_error_t _readHash(parser_context_t* c, pd_Hash_t* v);
+parser_error_t _readOptionAccountId(parser_context_t* c, pd_OptionAccountId_t* v);
+parser_error_t _readOptionProxyType(parser_context_t* c, pd_OptionProxyType_t* v);
 parser_error_t _readVecAccountId(parser_context_t* c, pd_VecAccountId_t* v);
 parser_error_t _readVecu8(parser_context_t* c, pd_Vecu8_t* v);
 
@@ -164,8 +166,22 @@ parser_error_t _toStringH160(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
+parser_error_t _toStringProxyType(
+    const pd_ProxyType_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
 parser_error_t _toStringTimepoint(
     const pd_Timepoint_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringWeight(
+    const pd_Weight_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -178,15 +194,15 @@ parser_error_t _toStringAccountIdLookupOfT(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringContractStakeInfoBalanceOfT(
-    const pd_ContractStakeInfoBalanceOfT_t* v,
+parser_error_t _toStringOptionTimepoint(
+    const pd_OptionTimepoint_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringOptionTimepoint(
-    const pd_OptionTimepoint_t* v,
+parser_error_t _toStringOptionWeight(
+    const pd_OptionWeight_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -213,8 +229,8 @@ parser_error_t _toStringVestingInfo(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringWeight(
-    const pd_Weight_t* v,
+parser_error_t _toStringCallHashOf(
+    const pd_CallHashOf_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -222,20 +238,6 @@ parser_error_t _toStringWeight(
 
 parser_error_t _toStringCompactu128(
     const pd_Compactu128_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringDappsRewardDestination(
-    const pd_DappsRewardDestination_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringEraIndex(
-    const pd_EraIndex_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -250,6 +252,20 @@ parser_error_t _toStringH256(
 
 parser_error_t _toStringHash(
     const pd_Hash_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringOptionAccountId(
+    const pd_OptionAccountId_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringOptionProxyType(
+    const pd_OptionProxyType_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,

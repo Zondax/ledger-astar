@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2023 Zondax AG
+ *  (c) 2019 - 2024 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -21,6 +21,8 @@ extern "C" {
 
 #define COIN_ADDR_TYPE 5
 #define CLA 0xa9
+
+#define INS_SIGN_RAW 0x03
 
 #define HDPATH_LEN_DEFAULT 5
 #define HDPATH_0_DEFAULT (0x80000000 | 0x2c)
@@ -53,7 +55,7 @@ typedef enum {
 #define SUPPORTED_TX_VERSION_CURRENT LEDGER_MAJOR_VERSION
 #define SUPPORTED_TX_VERSION_PREVIOUS (LEDGER_MAJOR_VERSION - 1)
 #define SUPPORTED_SPEC_VERSION (LEDGER_MINOR_VERSION + 0)
-#define SUPPORTED_MINIMUM_SPEC_VERSION 15
+#define SUPPORTED_MINIMUM_SPEC_VERSION 80
 
 #define COIN_AMOUNT_DECIMAL_PLACES 18
 

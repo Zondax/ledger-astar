@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2023 Zondax AG
+ *  (c) 2019 - 2024 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -150,9 +150,18 @@ typedef struct {
 } pd_H160_t;
 
 typedef struct {
+    uint8_t value;
+} pd_ProxyType_t;
+
+typedef struct {
     pd_BlockNumber_t height;
     uint32_t index;
 } pd_Timepoint_t;
+
+typedef struct {
+    pd_Compactu64_t refTime;
+    pd_Compactu64_t proofSize;
+} pd_Weight_t;
 
 typedef struct {
     uint8_t value;
@@ -165,15 +174,14 @@ typedef struct {
 } pd_AccountIdLookupOfT_t;
 
 typedef struct {
-    pd_CompactBalance_t total;
-    pd_Compactu32_t numberOfStakers;
-    pd_bool_t contractRewardClaimed;
-} pd_ContractStakeInfoBalanceOfT_t;
-
-typedef struct {
     uint8_t some;
     pd_Timepoint_t contained;
 } pd_OptionTimepoint_t;
+
+typedef struct {
+    uint8_t some;
+    pd_Weight_t contained;
+} pd_OptionWeight_t;
 
 typedef struct {
     uint8_t value;
@@ -197,19 +205,10 @@ typedef struct {
 } pd_VestingInfo_t;
 
 typedef struct {
-    pd_Compactu64_t refTime;
-    pd_Compactu64_t proofSize;
-} pd_Weight_t;
+    const uint8_t* _ptr;
+} pd_CallHashOf_t;
 
 typedef compactInt_t pd_Compactu128_t;
-
-typedef struct {
-    uint8_t value;
-} pd_DappsRewardDestination_t;
-
-typedef struct {
-    uint32_t value;
-} pd_EraIndex_t;
 
 typedef struct {
     const uint8_t* _ptr;
@@ -218,6 +217,16 @@ typedef struct {
 typedef struct {
     const uint8_t* _ptr;
 } pd_Hash_t;
+
+typedef struct {
+    uint8_t some;
+    pd_AccountId_t contained;
+} pd_OptionAccountId_t;
+
+typedef struct {
+    uint8_t some;
+    pd_ProxyType_t contained;
+} pd_OptionProxyType_t;
 
 typedef struct {
     uint64_t _len;
