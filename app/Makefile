@@ -26,6 +26,8 @@ include $(CURDIR)/../deps/ledger-zxlib/makefiles/Makefile.installer_script
 
 include $(BOLOS_SDK)/Makefile.defines
 
+PRODUCTION_BUILD ?= 1
+
 DEFINES += APP_ACCOUNT_MODE_ENABLED
 
 $(info ************ TARGET_NAME  = [$(TARGET_NAME)])
