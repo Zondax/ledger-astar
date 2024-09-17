@@ -26,6 +26,8 @@ include $(CURDIR)/../deps/ledger-zxlib/makefiles/Makefile.installer_script
 
 include $(BOLOS_SDK)/Makefile.defines
 
+PRODUCTION_BUILD ?= 1
+
 DEFINES += APP_ACCOUNT_MODE_ENABLED
 
 $(info ************ TARGET_NAME  = [$(TARGET_NAME)])
@@ -42,6 +44,16 @@ ifeq ($(SUBSTRATE_PARSER_FULL),1)
 DEFINES += SUBSTRATE_PARSER_FULL
 $(info ************ FULL PARSER ENABLED ************)
 endif
+
+# Display whether this is a production build or for internal use
+ifeq ($(PRODUCTION_BUILD), 1)
+    $(info ************ PRODUCTION_BUILD  = [PRODUCTION BUILD])
+else
+    $(info ************ PRODUCTION_BUILD  = [INTERNAL USE])
+endif
+
+# Add the PRODUCTION_BUILD definition to the compiler flags
+DEFINES += PRODUCTION_BUILD=$(PRODUCTION_BUILD)
 
 ifndef COIN
 COIN=ASTR
